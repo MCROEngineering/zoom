@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        "outDir": "./dist/lib/",
+        "sourceMap": true,
+        "strict": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "lib": ["es5", "es2015", "es2016", "es2017", "dom"],
+        "allowSyntheticDefaultImports": true,
+        "types": [
+            // add node as an option
+            "node"
+        ],
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": false,
+        "strictNullChecks": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": false
+    },
+    "include": [
+        "./src/**/**/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}
