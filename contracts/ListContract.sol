@@ -10,10 +10,10 @@
 
 pragma solidity 0.4.25;
 
-import "./Item.sol";
+import "./ItemEntity.sol";
 
 
-contract ListingContract {
+contract ListContract {
 
     address public managerAddress;
 

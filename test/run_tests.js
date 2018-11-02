@@ -1,4 +1,4 @@
-// const web3                   = require('web3');
+// const web3                      = require('web3');
 const web3util                  = require('web3-utils');
 const BigNumber                 = require('bignumber.js');
 
@@ -14,24 +14,24 @@ function toIntVal(val) {
     return parseInt(val);
 }
 
-web3._extend({
+web3.extend({
     property: 'evm',
-    methods: [new web3._extend.Method({
+    methods: [{
         name: 'snapshot',
         call: 'evm_snapshot',
         params: 0,
         outputFormatter: toIntVal
-    })]
+    }]
 });
 
-web3._extend({
+web3.extend({
     property: 'evm',
-    methods: [new web3._extend.Method({
+    methods: [{
         name: 'revert',
         call: 'evm_revert',
         params: 1,
         inputFormatter: [toIntVal]
-    })]
+    }]
 });
 
 const setup = {
@@ -43,29 +43,31 @@ const setup = {
         getContract:getContract,
         artifacts:artifacts,
         Table:Table,
-        BigNumber:BigNumber
-    }
+        BigNumber:BigNumber,
+    },
+    network: process.argv[4]
 };
 
-let tests = [];
-tests.push("external/SafeMath");
-tests.push("0_ERC20Token");
-tests.push("1_AirDrop");
-
-if(! process.env.SOLIDITY_COVERAGE ) {
-    //
-}
-
-utils.toLog('\n  ----------------------------------------------------------------');
-utils.toLog("  Running test collections ["+utils.colors.orange+tests.length+utils.colors.none+"]." );
-utils.toLog(' ----------------------------------------------------------------');
-
+const tests = [];
+tests.push("zoom");
 
 tests.map( async (name) => {
     if(name.length > 0) {
-        let filename = './tests/' + name + '.js';
-        let runTest = require(filename);
-        await runTest(setup);
+        const filename = './tests/' + name + '.js';
+        try {
+            const runTest = require(filename);
+            const tests = await runTest(setup);
+        } catch(e) {
+            console.log("error:", e);
+        }
+
     }
 });
 
+
+/*
+Promise.all(tests).then(function(values) {
+    console.log("promises all:", values);
+});
+
+*/

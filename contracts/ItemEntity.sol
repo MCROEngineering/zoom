@@ -111,4 +111,16 @@ contract ItemEntity {
         return outputBuffer;
     }
 
+    function multipleOne( uint8 numVar, bool boolVar, string stringVar, bytes8 bytesVar ) public pure returns ( string ) {
+        numVar = 0;
+        boolVar = false;
+        bytesVar = "";
+        return stringVar;
+    }
+
+    function multipleTwo( string one, string two, string three ) public pure returns ( string ) {
+        two = "";
+        three = "";
+        return one;
+    }
 }

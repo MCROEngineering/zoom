@@ -5,7 +5,7 @@ contract ExecutionTarget {
 
     function execute() public {
         counter += 1;
-        Executed(counter);
+        emit Executed(counter);
     }
 
     function setCounter(uint x) public {

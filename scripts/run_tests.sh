@@ -11,18 +11,22 @@ fi
 
 echo "--------------------------------------------------------------------"
 
-if [[ "$1" = "all" ]]; then
-  ./node_modules/.bin/ts-mocha --require source-map-support/register \
-    --full-trace \
-    --colors \
-    --paths -p ./ test/*/*.ts test/*.ts
+./node_modules/.bin/truffle test --network rpc test/run_tests.js 
+#--verbose-rpc
 
-else
-  ./node_modules/.bin/ts-mocha --require source-map-support/register \
-    --full-trace \
-    --colors \
-    --paths -p ./ $3
-fi
+
+#if [[ "$1" = "all" ]]; then
+#  ./node_modules/.bin/ts-mocha --require source-map-support/register \
+#    --full-trace \
+#    --colors \
+#    --paths -p ./ test/*/*.ts test/*.ts
+#
+#else
+#  ./node_modules/.bin/ts-mocha --require source-map-support/register \
+#    --full-trace \
+#    --colors \
+#    --paths -p ./ $3
+#fi
 
 echo "--------------------------------------------------------------------"
 echo ""

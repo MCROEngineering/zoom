@@ -40,9 +40,6 @@ e8be2e8e00 => 0000000000000000000000007d88463cc6d0ba403d302204236898414db3251a
 efdee94f00 => 0000000000000000000000003a0d088acfbd75fcf182a3b25d470492952dc704
 fa9d235200 => 0000000000000000000000000000000000000000000000000000000000000000  // bool false
 
-*/
-
-
 contract ApplicationEntity  {
     
     uint256 public  getTimestamp = 1535885903;
@@ -66,13 +63,14 @@ contract ApplicationEntity  {
     bool public hasRequiredStateChanges = false;
 
 }
+*/
 
-contract CallBufferTest {
+contract ZoomTest {
     
-    ApplicationEntity public AE;
+    // ApplicationEntity public AE;
     
     constructor () public {
-        AE = new ApplicationEntity();
+        // AE = new ApplicationEntity();
     }
     
     enum Types {
@@ -83,6 +81,7 @@ contract CallBufferTest {
         BOOL
     }
     
+    /*
     function testCombine() public view returns (bytes memory) {
 
         // hex[num:2][method_sha3:4][return_type:1][method_sha3:4][return_type:2]
@@ -90,6 +89,7 @@ contract CallBufferTest {
         bytes memory callData = hex'0013188ec3560119ee5bca02223fcbc9003072cf600030f7589000385fbe24004073002e0051fc6f590057945e3e006ad49245007278d62300919baade0091fa055500961ffc6800b37edb6600b8109e1a00e8be2e8e00efdee94f00fa9d235200';
         return combineCalls( address(AE), callData );
     }
+    */
 
     // function combine(address toAddr, bytes calldata inputData) external view returns (bytes memory, bytes memory, address) {
     function combineCalls(address toAddr, bytes memory inputData) public view returns (bytes memory) {
