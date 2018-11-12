@@ -1,73 +1,108 @@
-// const web3                      = require('web3');
-const web3util                  = require('web3-utils');
-const BigNumber                 = require('bignumber.js');
+const runTests = async() => {
 
-BigNumber.config({ DECIMAL_PLACES: 0 , ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
+    const rpcHost = "http://127.0.0.1:8545/";
+    const testnetHost = "https://rinkeby.infura.io/";
 
-const Table                     = require('cli-table');
-const utils                     = require('./helpers/utils');
-const { assertInvalidOpcode }   = require('./helpers/assertThrow');
-const getContract               = (name) => artifacts.require(name);
+    const tests = [];
+    tests.push("test");
+    tests.push("web3");
+    // tests.push("zoom");
 
+    const setup = {
+        network: process.argv[3],
+        globals: {},
+    };
 
-function toIntVal(val) {
-    return parseInt(val);
-}
+    const assert                    = require("chai").assert;
+    const OfficialWeb3              = require('web3');
+    const HttpProvider              = require("./web3/HttpProviderCache");
+    const web3util                  = require('web3-utils');
+    const utils                     = require('./helpers/utils');
+    const { assertInvalidOpcode }   = require('./helpers/assertThrow');
+    const BigNumber                 = require('bignumber.js');
+    BigNumber.config({ DECIMAL_PLACES: 0 , ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
 
-web3.extend({
-    property: 'evm',
-    methods: [{
-        name: 'snapshot',
-        call: 'evm_snapshot',
-        params: 0,
-        outputFormatter: toIntVal
-    }]
-});
+    let Provider;
 
-web3.extend({
-    property: 'evm',
-    methods: [{
-        name: 'revert',
-        call: 'evm_revert',
-        params: 1,
-        inputFormatter: [toIntVal]
-    }]
-});
+    if(setup.network === "local") {
+        Provider = new HttpProvider["default"]( rpcHost );
+    } else {
+        Provider = new HttpProvider["default"]( testnetHost );
+    }
 
-const setup = {
-    helpers:{
+    Provider.useCache(false);
+    const web3 = await new OfficialWeb3(Provider);
+
+    const artifacts = {};
+
+    setup.helpers = {
         assertInvalidOpcode:assertInvalidOpcode,
         utils:utils,
-        web3util:web3util,
         web3:web3,
-        getContract:getContract,
         artifacts:artifacts,
-        Table:Table,
+        web3util:web3util,
         BigNumber:BigNumber,
-    },
-    network: process.argv[4]
-};
+    };
 
-const tests = [];
-tests.push("zoom");
 
-tests.map( async (name) => {
-    if(name.length > 0) {
-        const filename = './tests/' + name + '.js';
+    if(setup.network === "local") {
+        // instantiate deployer if needed
         try {
-            const runTest = require(filename);
-            const tests = await runTest(setup);
+            const initDeployer = require('./tests/deployer.js');
+            await initDeployer(setup);
         } catch(e) {
             console.log("error:", e);
         }
+    } else {
+        // else load testnet addresses
 
     }
-});
 
+    setup.globals.runningTests = [];
+    
+    // setup in test globals.. ugly hack but it works.
+    global.setup = setup;
+    global.assert = assert;
+    
 
-/*
-Promise.all(tests).then(function(values) {
-    console.log("promises all:", values);
-});
+    utils.toLog(
+        ' ----------------------------------------------------------------\n'+
+        '  Step 3 - Run tests \n'+
+        '  ----------------------------------------------------------------'
+    );
 
-*/
+    if(tests.length > 0) {
+        const Mocha = require('mocha');
+
+        // Instantiate a Mocha instance.
+        const mocha = new Mocha();
+
+        for( let i = 0; i < tests.length; i++) {
+            mocha.addFile(
+                "test/tests/" + tests[i] + ".js"
+            );
+        }
+
+        // Run the tests.
+        const runner = mocha.run(function(failures){
+            process.exitCode = failures ? 1 : 0;  // exit with non-zero status if there were failures
+        });
+
+        runner.on("end", function(e) {
+
+            // display stats
+            try {
+                const initStats = require('./tests/stats.js');
+                initStats(setup);
+            } catch(e) {
+                console.log("error:", e);
+            }
+
+            process.exit(0);
+        })
+
+    }
+
+}
+
+runTests();

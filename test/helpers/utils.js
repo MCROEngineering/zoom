@@ -96,6 +96,49 @@ module.exports = {
         }
     },
     */
+    async evm_snapshot(helpers) {
+        return new Promise((resolve, reject) => {
+            helpers.web3.currentProvider.sendAsync({
+                jsonrpc: "2.0",
+                method: "evm_snapshot",
+                params: [],
+                id: new Date().getTime()
+            }, (err, result) => {
+                if (err) {
+                    return reject(err)
+                }
+                return resolve(result)
+            });
+        })
+    },
+    async evm_revert(helpers, snapshotId) {
+        return new Promise((resolve, reject) => {
+            helpers.web3.currentProvider.sendAsync({
+                jsonrpc: "2.0",
+                method: "evm_revert",
+                params: [snapshotId],
+                id: new Date().getTime()
+            }, (err, result) => {
+                if (err) {
+                    return reject(err)
+                }
+                return resolve(result)
+            });
+        })
+    },
+    async getAbi(name) {
+        const data = await require("../../build/contracts/"+name+".json");
+        return data.abi;
+    },
+    async getAbiFile(name) {
+        return require("../../build/contracts/"+name+".json");
+    },
+    async getContractInstance(helpers, name, address) {
+        return new helpers.web3.eth.Contract(
+            await helpers.utils.getAbi(name),
+            address
+        );
+    },
     async showAccountBalances(helpers, accounts) {
         helpers.utils.toLog(logPre + " TestRPC Balances: ");
         for (let i = 0; i < accounts.length; i++) {
@@ -130,4 +173,18 @@ module.exports = {
             tx.receipt.cumulativeGasUsed
         );
     },
+    async measureCallExecution(Call) {
+        const startTime = process.hrtime();
+        const item = await Call.call();
+        const endTime = process.hrtime(startTime);
+        const actualTime = endTime[0] + endTime[1] / 1000000000;
+        const gasUsage = await Call.estimateGas();
+        const callBinary = Call.encodeABI();
+        return {
+            data: item,
+            gas: gasUsage,
+            time: actualTime,
+            bin: callBinary,
+        }
+    }
 };

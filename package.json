@@ -4,8 +4,11 @@
   "description": "ZoomDev POC",
   "main": "index.js",
   "scripts": {
-    "test": "scripts/run_tests.sh all",
-    "test-reuse": "scripts/run_tests.sh all use-existing",
+    "build": "truffle compile",
+    "test": "scripts/run_tests.sh local",
+    "test-reuse": "scripts/run_tests.sh local use-existing",
+    "test-live": "scripts/run_tests.sh live",
+    "test-live-reuse": "scripts/run_tests.sh live use-existing",
     "deploy-test": "scripts/deploytest.sh",
     "deploy-live": "scripts/deploy.sh",
     "build-contracts": "sol-merger './contracts/*.sol' ./build-merger && sol-merger './contracts/Entity/*.sol' ./build-merger && sol-merger './contracts/Algorithms/*.sol' ./build-merger && sol-merger './contracts/Inputs/*.sol' ./build-merger"
@@ -13,7 +16,9 @@
   "files": [
     "index.js",
     "build/",
-    "artifacts/"
+    "contracts/",
+    "scripts/",
+    "test/"
   ],
   "author": "micky@nowlive.ro",
   "license": "MIT",

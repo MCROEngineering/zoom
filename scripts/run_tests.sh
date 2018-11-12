@@ -1,34 +1,22 @@
 #!/bin/bash
-sh scripts/rpcs/start_all.sh $2
-echo ""
-echo "--------------------------------------------------------------------"
 
-if [[ "$1" = "all" ]]; then
-  echo " Running all tests in \"test\" folder:"
-else
-  echo " Running tests in path \"$3\""
+if [[ "$1" == "local" ]]; then
+  sh scripts/rpcs/start_all.sh $2
 fi
-
+echo ""
 echo "--------------------------------------------------------------------"
 
-./node_modules/.bin/truffle test --network rpc test/run_tests.js 
-#--verbose-rpc
+#./node_modules/.bin/mocha --require source-map-support/register \
+#  --full-trace \
+#  --colors \
+#  --paths -p ./ ./test/run_tests.js 
 
-
-#if [[ "$1" = "all" ]]; then
-#  ./node_modules/.bin/ts-mocha --require source-map-support/register \
-#    --full-trace \
-#    --colors \
-#    --paths -p ./ test/*/*.ts test/*.ts
-#
-#else
-#  ./node_modules/.bin/ts-mocha --require source-map-support/register \
-#    --full-trace \
-#    --colors \
-#    --paths -p ./ $3
-#fi
+node test/run_tests.js --network local
 
 echo "--------------------------------------------------------------------"
 echo ""
-sh scripts/rpcs/stop_all.sh $2
+if [[ "$1" == "local" ]]; then
+  sh scripts/rpcs/stop_all.sh $2
+fi
 echo ""
+
