@@ -5,7 +5,8 @@ const runTests = async() => {
 
     const tests = [];
     tests.push("test");
-    tests.push("web3");
+    tests.push("web3.solo");
+    tests.push("web3.multi");
     // tests.push("zoom");
 
     const setup = {
@@ -98,7 +99,7 @@ const runTests = async() => {
                 console.log("error:", e);
             }
 
-            process.exit(0);
+            process.exit( process.exitCode );
         })
 
     }

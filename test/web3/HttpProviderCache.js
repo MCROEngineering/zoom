@@ -72,9 +72,11 @@ var HttpProviderCache = /** @class */ (function () {
                 catch (e) {
                     error = errors.InvalidResponse(request.responseText);
                 }
-                if (_this.usecache === true) {
+
+                // save in cache anyway
+                // if (_this.usecache === true) {
                     _this.toCache(payload, result);
-                }
+                // }
                 othis.connected = true;
                 callback(error, result);
             }
@@ -93,7 +95,7 @@ var HttpProviderCache = /** @class */ (function () {
     };
     HttpProviderCache.prototype.fromCache = function (payload) {
         var cacheKey = this.getCacheKey(payload);
-        console.log("fromCache", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
+        // console.log("fromCache", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
         return {
             jsonrpc: payload.jsonrpc,
             id: payload.id,
@@ -101,7 +103,7 @@ var HttpProviderCache = /** @class */ (function () {
         };
     };
     HttpProviderCache.prototype.fromCacheByKey = function (cacheKey, payload) {
-        console.log("fromCacheByKey", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
+        // console.log("fromCacheByKey", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
         return {
             jsonrpc: payload.jsonrpc,
             id: payload.id,
@@ -110,7 +112,7 @@ var HttpProviderCache = /** @class */ (function () {
     };
     HttpProviderCache.prototype.inCache = function (payload) {
         var cacheKey = this.getCacheKey(payload);
-        console.log("inCache", cacheKey, JSON.stringify(payload));
+        // console.log("inCache", cacheKey, JSON.stringify(payload));
         if (this.cache.hasOwnProperty(cacheKey)) {
             return true;
         }
@@ -124,16 +126,28 @@ var HttpProviderCache = /** @class */ (function () {
     };
     HttpProviderCache.prototype.toCache = function (payload, result) {
         var cacheKey = this.getCacheKey(payload);
-        console.log("toCache", cacheKey, JSON.stringify(payload), JSON.stringify(result));
-        this.cache[cacheKey] = result.result;
+        if(cacheKey !== false) {
+            // console.log("toCache", cacheKey, JSON.stringify(payload), JSON.stringify(result));
+            this.cache[cacheKey] = result.result;
+        }
     };
     HttpProviderCache.prototype.getCacheKey = function (payload) {
         if (payload.length > 1) {
-            var key = "batch_" + crypto_js_1["default"].MD5(JSON.stringify(payload));
+            var key = "batch_" + crypto_js_1.MD5(JSON.stringify(payload));
             return key;
         }
         else {
-            return crypto_js_1["default"].MD5(payload.params[0].to.toString().toLowerCase() + payload.params[0].data).toString();
+            if( payload.method === "eth_call" ) {
+                /*
+                return crypto_js_1.MD5(
+                    payload.params[0].to.toString().toLowerCase() 
+                    + payload.params[0].data
+                ).toString();
+                */
+
+                return payload.params[0].to + "_" + payload.params[0].data;
+            }
+            return false;
         }
     };
     return HttpProviderCache;

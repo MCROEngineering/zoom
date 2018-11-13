@@ -26,6 +26,8 @@ async function thisStep(setup) {
     utils.toLog( ' Total Data Load time : ' + totalProcessTime + ' seconds ' );
     utils.toLog( '' );
       
+    utils.toLog( globals.testWeb3Provider.cache );
+    
 };
 
 module.exports = thisStep;
