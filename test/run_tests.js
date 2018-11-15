@@ -1,26 +1,21 @@
+const assert                    = require("chai").assert;
+const OfficialWeb3              = require('web3');
+const HttpProvider              = require("./web3/HttpProviderCache");
+const web3util                  = require('web3-utils');
+const utils                     = require('./helpers/utils');
+const { assertInvalidOpcode }   = require('./helpers/assertThrow');
+const BigNumber                 = require('bignumber.js');
+
+const rpcHost = "http://127.0.0.1:8545/";
+const testnetHost = "https://rinkeby.infura.io/";
+
 const runTests = async() => {
-
-    const rpcHost = "http://127.0.0.1:8545/";
-    const testnetHost = "https://rinkeby.infura.io/";
-
-    const tests = [];
-    tests.push("test");
-    tests.push("web3.solo");
-    tests.push("web3.multi");
+    const tests = ['test', 'web3.solo', 'web3.multi'];
     // tests.push("zoom");
-
     const setup = {
         network: process.argv[3],
         globals: {},
     };
-
-    const assert                    = require("chai").assert;
-    const OfficialWeb3              = require('web3');
-    const HttpProvider              = require("./web3/HttpProviderCache");
-    const web3util                  = require('web3-utils');
-    const utils                     = require('./helpers/utils');
-    const { assertInvalidOpcode }   = require('./helpers/assertThrow');
-    const BigNumber                 = require('bignumber.js');
     BigNumber.config({ DECIMAL_PLACES: 0 , ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
 
     let Provider;
@@ -32,17 +27,18 @@ const runTests = async() => {
     }
 
     Provider.useCache(false);
+    
     const web3 = await new OfficialWeb3(Provider);
 
     const artifacts = {};
 
     setup.helpers = {
-        assertInvalidOpcode:assertInvalidOpcode,
-        utils:utils,
-        web3:web3,
-        artifacts:artifacts,
-        web3util:web3util,
-        BigNumber:BigNumber,
+        assertInvalidOpcode,
+        utils,
+        web3,
+        artifacts,
+        web3util,
+        BigNumber
     };
 
 
@@ -89,7 +85,7 @@ const runTests = async() => {
             process.exitCode = failures ? 1 : 0;  // exit with non-zero status if there were failures
         });
 
-        runner.on("end", function(e) {
+        runner.on("end", (e) => {
 
             // display stats
             try {
@@ -100,10 +96,10 @@ const runTests = async() => {
             }
 
             process.exit( process.exitCode );
-        })
+        });
 
     }
 
-}
+};
 
 runTests();

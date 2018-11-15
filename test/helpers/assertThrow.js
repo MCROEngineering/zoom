@@ -32,7 +32,7 @@ module.exports = {
     async assertInvalidOpcode(block, message = 'should have failed with invalid opcode') {
         return assertThrows(block, message, 'invalid opcode')
     },
-    async assertJump(block, message = 'should have failed with invalid opcode') {
+    async assertOpcode(block, message = 'should have failed with invalid opcode') {
         return assertThrows(block, message, 'invalid opcode')
     }
 };

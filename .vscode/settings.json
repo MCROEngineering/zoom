@@ -3,6 +3,6 @@
     "solidity.soliumRules": {
         "quotes": ["error", "double"],
         "indentation": ["error", 4],
-        "no-inline-assembly": false,
-    },    
+        "no-inline-assembly": false
+    }
 }

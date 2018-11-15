@@ -1,4 +1,4 @@
-const thisStep = async() => {
+async function thisStep(setup) {
 
     
     const OfficialWeb3                  = require('web3');
@@ -34,7 +34,7 @@ const thisStep = async() => {
                 TestWeb3 = await new OfficialWeb3(Provider);
                 TestListContract = await new TestWeb3.eth.Contract(globals.abis.ListContract, ListContractInstance._address);
                 // utils.toLog( ' Provider initialised' );
-            })
+            });
 
             after( async() => {
 
@@ -46,7 +46,7 @@ const thisStep = async() => {
                 utils.toLog( '' );
 
                 globals.OneItemTotalGasUsage = totalGasUsage;
-            })
+            });
 
             describe("Load first item from list, then get all it's properties in tests ( determine gas )", async() => {
 
@@ -70,7 +70,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getName() should return a string", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getName()
                     );
                     totalProcessTime += result.time;
@@ -80,7 +80,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getAsset() should return an address", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getAsset()
                     );
                     totalProcessTime += result.time;
@@ -90,7 +90,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getUint8() should return a string containing a uint8", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getUint8()
                     );
                     totalProcessTime += result.time;
@@ -100,7 +100,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getUint16() should return a string containing a uint16", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getUint16()
                     );
                     totalProcessTime += result.time;
@@ -110,7 +110,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getUint32() should return a string containing a uint32", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getUint32()
                     );
                     totalProcessTime += result.time;
@@ -120,7 +120,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getUint64() should return a string containing a uint64", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getUint64()
                     );
                     totalProcessTime += result.time;
@@ -133,7 +133,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getUint128() should return a string containing a uint128", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getUint128()
                     );
                     totalProcessTime += result.time;
@@ -146,7 +146,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getUint256() should return a string containing a uint256", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getUint256()
                     );
                     totalProcessTime += result.time;
@@ -159,7 +159,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getString8() should return a string with length 8", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getString8()
                     );
                     totalProcessTime += result.time;
@@ -170,7 +170,7 @@ const thisStep = async() => {
                 });
                 
                 it("test item.getString16() should return a string with length 16", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getString16()
                     );
                     totalProcessTime += result.time;
@@ -181,7 +181,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getString32() should return a string with length 32", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getString32()
                     );
                     totalProcessTime += result.time;
@@ -192,7 +192,7 @@ const thisStep = async() => {
                 });
                 
                 it("test item.getString64() should return a string with length 64", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getString64()
                     );
                     totalProcessTime += result.time;
@@ -203,7 +203,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getAddress() should return an address", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getAddress()
                     );
                     totalProcessTime += result.time;
@@ -213,7 +213,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getBoolTrue() should return a bool = true", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getBoolTrue()
                     );
                     totalProcessTime += result.time;
@@ -223,7 +223,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getBoolFalse() should return a bool = false", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getBoolFalse()
                     );
                     totalProcessTime += result.time;
@@ -233,7 +233,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getBytes8() should return a hex string with length 18", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getBytes8()
                     );
                     totalProcessTime += result.time;
@@ -244,7 +244,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getBytes16() should return a hex string with length 34", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getBytes16()
                     );
                     totalProcessTime += result.time;
@@ -255,7 +255,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getBytes32() should return a hex string with length 66", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getBytes32()
                     );
                     totalProcessTime += result.time;
@@ -266,7 +266,7 @@ const thisStep = async() => {
                 });
 
                 it("test item.getBytes() should return a hex string with length 130", async() => {
-                    const result = await utils.measureCallExecution( 
+                    const result = await utils.measureCallExecution(
                         TestItemContract.methods.getBytes()
                     );
                     totalProcessTime += result.time;
@@ -447,6 +447,6 @@ const thisStep = async() => {
         });
 
     });
-};
+}
 
-setup.globals.runningTests.push( thisStep() );
+setup.globals.runningTests.push( thisStep(setup) );

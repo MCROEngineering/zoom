@@ -1,4 +1,4 @@
-const thisStep = async() => {
+async function thisStep(setup) {
 
     
     const OfficialWeb3                  = require('web3');
@@ -518,7 +518,7 @@ const thisStep = async() => {
             - 1 byte uint8 call type ( 1 normal / 2 - to address is result of a previous call )
             00
             - 2 bytes uint16 call_data length
-            0001 
+            0001
             - 2 bytes uint16 result_id that holds our call's address
             0001
             - 2 bytes uint16 offset in bytes where the address starts in said result
@@ -526,9 +526,9 @@ const thisStep = async() => {
             - empty - 1
             00
             - 20 bytes address / or 20 bytes of 0's if type 2
-            0000000000000000000000000000000000000099 
+            0000000000000000000000000000000000000099
             - 4 bytes method sha
-            27285d5d 
+            27285d5d
             | call data
             0000000000000000000000000000000000000000000000000000000000000060
             00000000000000000000000000000000000000000000000000000000000000a0
@@ -664,7 +664,7 @@ const thisStep = async() => {
 
     });
 
-};
+}
 
-setup.globals.runningTests.push( thisStep() );
+setup.globals.runningTests.push( thisStep(setup) );
 

@@ -39,7 +39,7 @@ async function thisStep(setup) {
     }).send({
         from: fromAccount,
         gas: 6700000,
-    }, function(error, transactionHash){ 
+    }, function(error, transactionHash){
         if( error ) {
             console.log("error", error);
         }
@@ -53,7 +53,7 @@ async function thisStep(setup) {
     }).send({
         from: fromAccount,
         gas: 6700000,
-    }, function(error, transactionHash){ 
+    }, function(error, transactionHash){
         if( error ) {
             console.log("error", error);
         }
@@ -71,7 +71,7 @@ async function thisStep(setup) {
     }).send({
         from: fromAccount,
         gas: 1500000,
-    }, function(error, transactionHash){ 
+    }, function(error, transactionHash){
         if( error ) {
             console.log("error", error);
         } else {
@@ -129,7 +129,7 @@ async function thisStep(setup) {
     );
     utils.toLog( ' Zoom at:         ' + ZoomContract_address  );
     utils.toLog( '' );
-        
-};
+    
+}
 
 module.exports = thisStep;
