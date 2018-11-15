@@ -112,6 +112,7 @@ class Zoom {
                     bytes.copyBytes(packet.toAddress, 0);
                     bytes.copyBytes(callData, 0);
                     this.binary.push(bytes);
+                    console.log(packet);
                 }
             }
         }
@@ -198,7 +199,7 @@ class Zoom {
                 const position = value.indexOf(to);
                 if (position !== -1) {
                     retval.callNum = i;
-                    retval.bytePosition = position - 2; // adjust for 0x in result
+                    retval.bytePosition = (position - 2) / 2; // adjust for 0x in result
                     retval.found = true;
                     return retval;
                 }
