@@ -14,14 +14,9 @@ module.exports = {
       .filter(s => !excludeConstant || !s.constant)
       .map(sig)
       .filter(s => excludedSigs.indexOf(s) < 0);
-    
     const bs = signatures.map(s => web3.sha3(s).slice(0, 10)).sort();
 
-    if (names) {
-      return bs.map((b, i) => ({name: signatures[i], bytes: b}));
-    }
-    
-    return bs
+    return names === true ? bs.map((b, i) => ({name: signatures[i], bytes: b})) : bs;
   },
 
   getBalance(addr) {
