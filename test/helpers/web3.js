@@ -5,21 +5,23 @@ module.exports = {
   
   signatures(contract, exclude, web3, names = false, excludeConstant = false) {
     const flatten = x => [].concat.apply([], x);
-    const sig = f => `${f.name}(${f.inputs.map(x=>x.type).join(',')})`;
-
+    const sig = f => `${f.name}(${f.inputs.map(x => x.type).join(',')})`;
+    
     const excludedSigs = flatten(exclude.map(x => x.abi)).map(sig);
 
-    let signatures = contract.abi
+    const signatures = contract.abi
       .filter(x => x.type === 'function')
       .filter(s => !excludeConstant || !s.constant)
       .map(sig)
       .filter(s => excludedSigs.indexOf(s) < 0);
+    
+    const bs = signatures.map(s => web3.sha3(s).slice(0, 10)).sort();
 
-     let bs = signatures.map(s => web3.sha3(s).slice(0, 10)).sort();
-     if (names)
-        return bs.map((b, i) => ({ name: signatures[i], bytes: b }));
-
-     return bs
+    if (names) {
+      return bs.map((b, i) => ({name: signatures[i], bytes: b}));
+    }
+    
+    return bs
   },
 
   getBalance(addr) {
@@ -48,7 +50,7 @@ module.exports = {
       })
     })
   },
-
+  
   sendTransaction(payload) {
     return new Promise((resolve, reject) => {
       web3.eth.sendTransaction(payload, async (err, res) => {
@@ -82,5 +84,5 @@ module.exports = {
         })
       })
     })
-  }
+  },
 };
