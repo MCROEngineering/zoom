@@ -1,40 +1,40 @@
-module.exports = async(setup) => {
+// how many records are we testing with
+const TestDummyRecords = 50;
 
-    // how many records are we testing with
-    const TestDummyRecords = 50;
+const OfficialWeb3 = require('web3');
+const HttpProvider = require('../web3/HttpProviderCache');
+const WsProvider = require('../web3/WsProviderCache');
 
-    const OfficialWeb3                  = require('web3');
-    const HttpProvider                  = require("../web3/HttpProviderCache");
-    const WsProvider                    = require("../web3/WsProviderCache");
+const helpers = setup.helpers;
+const utils = require('../helpers/utils');
+const web3util = require('web3-utils');
 
-    const helpers                       = setup.helpers;
-    const utils                         = require('../helpers/utils');
-    const web3util                      = require('web3-utils');
+const ListContract = artifacts.require('ListContract');
+const ItemEntity = artifacts.require('ItemEntity');
+const ZoomTest = artifacts.require('ZoomTest');
 
-    const ListContract                  = artifacts.require('ListContract');
-    const ItemEntity                    = artifacts.require('ItemEntity');
-    const ZoomTest                      = artifacts.require('ZoomTest');
+const getContract = (obj) => artifacts.require(obj.name);
 
-    const getContract = (obj)           => artifacts.require(obj.name);
+const getGasUsageEstimate = async (call) => {
+  return await call.estimateGas();
+};
 
-    const getGasUsageEstimate = async (call) => {
-         return await call.estimateGas();
-    }
+const measureCallExecution = async (Call) => {
+  const startTime = process.hrtime();
+  const item = await Call.call();
+  const endTime = process.hrtime(startTime);
+  const actualTime = endTime[0] + endTime[1] / 1000000000;
+  const gasUsage = await Call.estimateGas();
+  const callBinary = Call.encodeABI();
+  return {
+    data: item,
+    gas: gasUsage,
+    time: actualTime,
+    bin: callBinary,
+  }
+};
 
-    const measureCallExecution = async (Call) => {
-        const startTime = process.hrtime();
-        const item = await Call.call();
-        const endTime = process.hrtime(startTime);
-        const actualTime = endTime[0] + endTime[1] / 1000000000;
-        const gasUsage = await Call.estimateGas();
-        const callBinary = Call.encodeABI();
-        return {
-            data: item,
-            gas: gasUsage,
-            time: actualTime,
-            bin: callBinary,
-        }
-    }
+module.exports = async (setup) => {
 
     let ItemEntity_address;
     let ItemEntityContractInstance;
@@ -59,7 +59,7 @@ module.exports = async(setup) => {
             }).send({
                 from: accounts[0],
                 gas: 6700000,
-            }, function(error, transactionHash){ 
+            }, function(error, transactionHash){
                 if( error ) {
                     console.log("error", error);
                 }
@@ -73,7 +73,7 @@ module.exports = async(setup) => {
             }).send({
                 from: accounts[0],
                 gas: 6700000,
-            }, function(error, transactionHash){ 
+            }, function(error, transactionHash){
                 if( error ) {
                     console.log("error", error);
                 }
@@ -91,7 +91,7 @@ module.exports = async(setup) => {
             }).send({
                 from: accounts[0],
                 gas: 1500000,
-            }, function(error, transactionHash){ 
+            }, function(error, transactionHash){
                 if( error ) {
                     console.log("error", error);
                 } else {
@@ -196,7 +196,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getName() should return a string", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getName()
                     );
                     totalProcessTime += result.time;
@@ -206,7 +206,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getAsset() should return an address", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getAsset()
                     );
                     totalProcessTime += result.time;
@@ -216,7 +216,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getUint8() should return a string containing a uint8", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getUint8()
                     );
                     totalProcessTime += result.time;
@@ -226,7 +226,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getUint16() should return a string containing a uint16", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getUint16()
                     );
                     totalProcessTime += result.time;
@@ -236,7 +236,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getUint32() should return a string containing a uint32", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getUint32()
                     );
                     totalProcessTime += result.time;
@@ -246,7 +246,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getUint64() should return a string containing a uint64", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getUint64()
                     );
                     totalProcessTime += result.time;
@@ -259,7 +259,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getUint128() should return a string containing a uint128", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getUint128()
                     );
                     totalProcessTime += result.time;
@@ -272,7 +272,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getUint256() should return a string containing a uint256", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getUint256()
                     );
                     totalProcessTime += result.time;
@@ -285,7 +285,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getString8() should return a string with length 8", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getString8()
                     );
                     totalProcessTime += result.time;
@@ -296,7 +296,7 @@ module.exports = async(setup) => {
                 });
                 
                 it("test item.getString16() should return a string with length 16", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getString16()
                     );
                     totalProcessTime += result.time;
@@ -307,7 +307,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getString32() should return a string with length 32", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getString32()
                     );
                     totalProcessTime += result.time;
@@ -318,7 +318,7 @@ module.exports = async(setup) => {
                 });
                 
                 it("test item.getString64() should return a string with length 64", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getString64()
                     );
                     totalProcessTime += result.time;
@@ -329,7 +329,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getAddress() should return an address", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getAddress()
                     );
                     totalProcessTime += result.time;
@@ -339,7 +339,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getBoolTrue() should return a bool = true", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getBoolTrue()
                     );
                     totalProcessTime += result.time;
@@ -349,7 +349,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getBoolFalse() should return a bool = false", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getBoolFalse()
                     );
                     totalProcessTime += result.time;
@@ -359,7 +359,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getBytes8() should return a hex string with length 18", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getBytes8()
                     );
                     totalProcessTime += result.time;
@@ -370,7 +370,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getBytes16() should return a hex string with length 34", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getBytes16()
                     );
                     totalProcessTime += result.time;
@@ -381,7 +381,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getBytes32() should return a hex string with length 66", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getBytes32()
                     );
                     totalProcessTime += result.time;
@@ -392,7 +392,7 @@ module.exports = async(setup) => {
                 });
 
                 it("test item.getBytes() should return a hex string with length 130", async() => {
-                    const result = await measureCallExecution( 
+                    const result = await measureCallExecution(
                         TestItemContract.methods.getBytes()
                     );
                     totalProcessTime += result.time;
@@ -1073,7 +1073,7 @@ module.exports = async(setup) => {
             - 1 byte uint8 call type ( 1 normal / 2 - to address is result of a previous call )
             00
             - 2 bytes uint16 call_data length
-            0001 
+            0001
             - 2 bytes uint16 result_id that holds our call's address
             0001
             - 2 bytes uint16 offset in bytes where the address starts in said result
@@ -1081,9 +1081,9 @@ module.exports = async(setup) => {
             - empty - 1
             00
             - 20 bytes address / or 20 bytes of 0's if type 2
-            0000000000000000000000000000000000000099 
+            0000000000000000000000000000000000000099
             - 4 bytes method sha
-            27285d5d 
+            27285d5d
             | call data
             0000000000000000000000000000000000000000000000000000000000000060
             00000000000000000000000000000000000000000000000000000000000000a0

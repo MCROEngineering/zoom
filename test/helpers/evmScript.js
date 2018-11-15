@@ -12,4 +12,4 @@ module.exports = {
             return script + addr.slice(24) + length.slice(56) + calldata.slice(2)
         }, '0x')
     }
-}
+};

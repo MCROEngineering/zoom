@@ -21,19 +21,19 @@
     "scripts/",
     "test/"
   ],
-  "author": "micky@nowlive.ro",
+  "author": "micky@mcro.tech",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mickys/zoomdev"
+    "url": "git+https://github.com/MCROEngineering/zoom"
   },
   "keywords": [
     "zoomdev"
   ],
   "bugs": {
-    "url": "https://github.com/mickys/zoomdev/issues"
+    "url": "https://github.com/MCROEngineering/zoom/issues"
   },
-  "homepage": "https://github.com/mickys/zoomdev#readme",
+  "homepage": "https://github.com/MCROEngineering/zoom#readme",
   "devDependencies": {
     "dateformat": "^3.0.3",
     "ethereumjs-abi": "^0.6.4",

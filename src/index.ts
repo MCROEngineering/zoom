@@ -8,17 +8,13 @@ export default class Zoom {
     public refcalls: {} = {};
     public binary: any = [];
 
-    constructor() {
-
-    }
-
     public buildCall( cache: any ) {
         this.cache = cache;
         this.groupCalls();
         this.buildCallReferences();
-        this.generateBinaryCalls()
-        // console.log(this.binary);
-        return this.addZoomHeader( this.getBinaryCall() );
+        this.generateBinaryCalls();
+        const binaryCall = this.getBinaryCall();
+        return this.addZoomHeader(binaryCall);
     }
 
     public addZoomHeader( data: string ): string {
@@ -30,12 +26,12 @@ export default class Zoom {
         bytes.writeUnsignedShort( this.binary.length );
         // add expected return size
         bytes.writeUnsignedShort( this.getExpectedResultSizeInWords() );
-        
+
         return bytes.toString("hex") + data;
     }
 
     public getBinaryCall(): string {
-        
+
         // make sure to sort these by type and have type 1 first, as we need to index them
         // in order to use the results for addresses / other things
 
@@ -71,15 +67,15 @@ export default class Zoom {
     - 1 byte uint8 call type ( 1 normal / 2 - to address is result of a previous call )
     00
     - 2 bytes uint16 call_data length
-    0001 
+    0001
     - 2 bytes uint16 result_id that holds our call's address
     0001
     - 2 bytes uint16 offset in bytes where the address starts in said result
     0000
     - 20 bytes address / or none if type 2
-    0000000000000000000000000000000000000099 
+    0000000000000000000000000000000000000099
     - 4 bytes method sha
-    27285d5d 
+    27285d5d
     | call data
     0000000000000000000000000000000000000000000000000000000000000060
     00000000000000000000000000000000000000000000000000000000000000a0
@@ -95,48 +91,46 @@ export default class Zoom {
 
     public generateBinaryCalls() {
 
-        for (const key in this.refcalls) {
-            if (this.refcalls.hasOwnProperty(key)) {
-                const call = this.refcalls[key];
+        Object.keys(this.refcalls).forEach((key) => {
+            const call = this.refcalls[key];
 
-                for (let i = 0; i < call.values.length ; i++) {
-                    const currentCall = call.values[i];
-                    const callData = Buffer.from( this.removeZeroX( currentCall ), "hex" );
+            for (let i = 0; i < call.values.length ; i++) {
+                const currentCall = call.values[i];
+                const callData = Buffer.from( this.removeZeroX( currentCall ), "hex" );
 
-                    const packet = {
-                        type: 1,
-                        data_length: callData.length, 
-                        result_id: 0,
-                        offset: 0,
-                        toAddress: Buffer.from( this.removeZeroX(key), "hex" ) , // key contains to address
-                        data: callData,
-                    }
+                const packet = {
+                    type: 1,
+                    data_length: callData.length,
+                    result_id: 0,
+                    offset: 0,
+                    toAddress: Buffer.from( this.removeZeroX(key), "hex" ) , // key contains to address
+                    data: callData,
+                };
 
-                    // referenced calls
-                    if( call.reference === true) {
-                        packet.type = 2;
-                        packet.toAddress = Buffer.from("");
-                        packet.result_id = call.number.toString();
-                        packet.offset = call.position.toString();
-                    }
-
-                    const bytes = new ByteArray( Buffer.alloc(8) );
-
-                    bytes.writeByte(packet.type);
-                    bytes.writeUnsignedShort(packet.data_length);
-                    bytes.writeUnsignedShort(packet.result_id);
-                    bytes.writeUnsignedShort(packet.offset);
-
-                    // 1 empty byte
-                    bytes.writeByte(0);
-
-                    bytes.copyBytes(packet.toAddress, 0);
-                    bytes.copyBytes(callData, 0);
-                    this.binary.push( bytes );
-                    console.log( packet );
+                // referenced calls
+                if( call.reference === true) {
+                    packet.type = 2;
+                    packet.toAddress = Buffer.from("");
+                    packet.result_id = call.number.toString();
+                    packet.offset = call.position.toString();
                 }
+
+                const bytes = new ByteArray( Buffer.alloc(8) );
+
+                bytes.writeByte(packet.type);
+                bytes.writeUnsignedShort(packet.data_length);
+                bytes.writeUnsignedShort(packet.result_id);
+                bytes.writeUnsignedShort(packet.offset);
+
+                // 1 empty byte
+                bytes.writeByte(0);
+
+                bytes.copyBytes(packet.toAddress, 0);
+                bytes.copyBytes(callData, 0);
+                this.binary.push( bytes );
+                console.log( packet );
             }
-        }
+        });
     }
 
     public parsePacket( bytes: Buffer ) {
@@ -148,7 +142,7 @@ export default class Zoom {
             offset: 0,
             toAddress: "", // key contains to address
             data: "",
-        }
+        };
 
         let offset = 0;
         packet.type = bytes.readInt8(offset);
@@ -164,9 +158,6 @@ export default class Zoom {
 
         offset += 2;
         // packet.toAddress = bytes.readInt16BE(offset);
-
-        
-
     }
 
     public removeZeroX(string: string): string {
@@ -187,75 +178,58 @@ export default class Zoom {
 
 
     public groupCalls() {
+        Object.keys(this.cache).forEach((key: string) => {
+            const parts = key.split("_");
+            const toAddress = parts[0];
+            const toCall = parts[1];
 
-        for (const key in this.cache) {
-
-            if (this.cache.hasOwnProperty(key)) {
-                
-                const parts = key.split("_");
-                const toAddress = parts[0];
-                const toCall = parts[1];
-                
-                if( !this.calls.hasOwnProperty(toAddress) ) {
-                    this.calls[toAddress] = [];
-                }
-
-                this.calls[toAddress].push( toCall )
+            if( !this.calls.hasOwnProperty(toAddress) ) {
+                this.calls[toAddress] = [];
             }
-        }
 
+            this.calls[toAddress].push( toCall )
+        });
     }
 
     public buildCallReferences() {
-        
-        for (const key in this.calls) {
-            if (this.calls.hasOwnProperty(key)) {
+        Object.keys(this.calls).forEach((key: string) => {
+            const {found, callNum, bytePosition} = this.findToAddressInAResult(key);
 
-                const result = this.findToAddressInAResult(key);
-                
-                if(result.found === true) {
-                    this.refcalls[key] = {
-                        reference: result.found,
-                        number: result.callNum,
-                        position: result.bytePosition,
-                        values: this.calls[key],
-                    }
-                } else {
-                    this.refcalls[key] = {
-                        reference: result.found,
-                        values: this.calls[key],
-                    }
+            if(found === true) {
+                this.refcalls[key] = {
+                    reference: found,
+                    number: callNum,
+                    position: bytePosition,
+                    values: this.calls[key],
+                }
+            } else {
+                this.refcalls[key] = {
+                    reference: found,
+                    values: this.calls[key],
                 }
             }
-        }
+        });
     }
 
     public findToAddressInAResult(to: string): any {
 
         // strip 0x from the address
-        to = to.replace("0x","");
-
+        const cleanTo = to.replace("0x","");
         const retval = {
             callNum: 0,
             bytePosition: 0,
             found: false,
-        }
-
-        let i = 0;
-        for (const key in this.cache) {
-            if (this.cache.hasOwnProperty(key)) {
-                const value = this.cache[key];
-
-                const position = value.indexOf(to);
-                if(position !== -1) {
-                    retval.callNum = i;
-                    retval.bytePosition = ( position - 2 ) / 2; // adjust for 0x in result
-                    retval.found = true;
-                    return retval;
-                }
-                i++;
+        };
+        Object.keys(this.cache).some((key: string, index: number) => {
+            const position = this.cache[key].indexOf(cleanTo);
+            if(position > -1) {
+                retval.callNum = index;
+                retval.bytePosition = ( position - 2 ) / 2; // adjust for 0x in result
+                retval.found = true;
+                return true;
             }
-        }
+            return false;
+        });
 
         return retval;
     }
