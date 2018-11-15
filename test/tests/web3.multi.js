@@ -666,5 +666,5 @@ async function thisStep(setup) {
 
 }
 
-setup.globals.runningTests.push( thisStep() );
+setup.globals.runningTests.push( thisStep(setup) );
 
