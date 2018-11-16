@@ -1,17 +1,17 @@
 /*
 
- * source       https://github.com/mickys/zoomdev/
-
+ * source       https://github.com/MCROEngineering/zoom/
  * @name        List Contract
  * @package     ZoomDev
- * @author      Micky Socaci <micky@nowlive.ro>
-
+ * @author      Micky Socaci <micky@mcro.tech>
+ * @license     MIT
+ 
 */
 
 pragma solidity 0.4.25;
 
-import "./ItemEntity.sol";
 
+import "./ItemEntity.sol";
 
 contract ListContract {
 

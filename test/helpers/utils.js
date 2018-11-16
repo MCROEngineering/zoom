@@ -1,5 +1,6 @@
 const web3util      = require('web3-utils');
 const dateFormat    = require('dateformat');
+
 /*
  ascii escape codes
 
