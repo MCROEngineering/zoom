@@ -28,6 +28,13 @@ class HttpProvider {
         this.headers = options.headers;
         this.cache = {};
     }
+    /**
+     * Should be used to make async request
+     *
+     * @method useCache
+     * @param {Object} payload
+     * @param {Function} callback triggered on end with (err, result)
+     */
     useCache(val) {
         this.usecache = val;
     }

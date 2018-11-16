@@ -2,9 +2,11 @@
   "name": "zoom",
   "version": "0.1.0",
   "description": "Zoom Dev",
-  "main": "index.js",
+  "main": "dist/lib/index.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
-    "build": "tsc -p . && truffle compile",
+    "build": "tsc -p . && npm run build:dec && truffle compile",
+    "build:dec": "scripts/declarations.sh",
     "test-ts": "tsc -p . && node test-ts/run.js",
     "test": "scripts/run_tests.sh local",
     "test-reuse": "scripts/run_tests.sh local use-existing",

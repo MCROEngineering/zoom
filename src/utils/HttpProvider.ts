@@ -32,15 +32,22 @@ export default class HttpProvider {
         this.cache = {};
     }
 
-    public useCache(val: boolean) {
+    /**
+     * Should be used to make async request
+     *
+     * @method useCache
+     * @param {Object} payload
+     * @param {Function} callback triggered on end with (err, result)
+     */
+    public useCache(val: boolean): void {
         this.usecache = val;
     }
 
-    public setCache(data: any) {
+    public setCache(data: any): void {
         this.cache = data;
     }
 
-    public _prepareRequest() {
+    public _prepareRequest(): XMLHttpRequest {
         const request = new XHR2();
 
         request.open('POST', this.host, true);
@@ -64,7 +71,7 @@ export default class HttpProvider {
      * @param {Object} payload
      * @param {Function} callback triggered on end with (err, result)
      */
-    public send(payload: any, callback: any) {
+    public send(payload: {}, callback: any): void {
 
         this.requests.push(JSON.stringify(payload));
 

@@ -23,7 +23,7 @@ const runTests = async() => {
         globals: {},
     };
     
-    BigNumber.config({ DECIMAL_PLACES: 0 , ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
+    BigNumber.config({ DECIMAL_PLACES: 0, ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
 
     let Provider;
 
