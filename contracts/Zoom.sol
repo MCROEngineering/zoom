@@ -1,13 +1,17 @@
-pragma solidity ^0.4.25;
-
 /*
-
+ 
+ * source       https://github.com/MCROEngineering/zoom/
+ * @name        Zoom Contract
  * @package     ZoomDev
- * @author      Micky Socaci <micky@nowlive.ro>
+ * @author      Micky Socaci <micky@mcro.tech>
+ * @license     MIT
 
-Generic ABI Batch caller 
+ Generic ABI Batch caller 
 
 */
+
+pragma solidity ^0.4.25;
+
 
 contract Zoom {
     

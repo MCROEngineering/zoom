@@ -1,7 +1,7 @@
 {
-  "name": "zoomdev",
-  "version": "0.0.1",
-  "description": "ZoomDev POC",
+  "name": "zoom",
+  "version": "0.1.0",
+  "description": "Zoom Dev",
   "main": "index.js",
   "scripts": {
     "build": "tsc -p . && truffle compile",
@@ -57,7 +57,6 @@
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.11.3",
     "bignumber.js": "^8.0.1",
-    "bytearray-node": "^1.2.9",
     "chai": "^4.2.0",
     "cli-table": "^0.3.1",
     "cross-env": "^5.2.0",

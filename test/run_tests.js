@@ -9,13 +9,20 @@ const BigNumber                 = require('bignumber.js');
 const rpcHost = "http://127.0.0.1:8545/";
 const testnetHost = "https://rinkeby.infura.io/";
 
+const tests = [
+    'test',
+    'web3.solo',
+    'web3.multi',
+    'zoom'
+];
+
 const runTests = async() => {
-    const tests = ['test', 'web3.solo', 'web3.multi'];
-    // tests.push("zoom");
+
     const setup = {
         network: process.argv[3],
         globals: {},
     };
+    
     BigNumber.config({ DECIMAL_PLACES: 0 , ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
 
     let Provider;

@@ -1,0 +1,929 @@
+{
+  "contractName": "Zoom",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "inputData",
+          "type": "bytes"
+        }
+      ],
+      "name": "combine",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes"
+        },
+        {
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b50610377806100206000396000f300608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063124542e314610046575b600080fd5b34801561005257600080fd5b506100ad600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290505050610194565b604051808060200180602001838103835285818151815260200191508051906020019080838360005b838110156100f15780820151818401526020810190506100d6565b50505050905090810190601f16801561011e5780820380516001836020036101000a031916815260200191505b50838103825284818151815260200191508051906020019080838360005b8381101561015757808201518184015260208101905061013c565b50505050905090810190601f1680156101845780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b606080606080606060208601600381015160001a610100600283015160001a020159604052604051945060408102855260005b600282028110156101e9576000602082026020880101526001810190506101c7565b5059604052604051935060208102845260005b8181101561021b576000602082026020870101526001810190506101fc565b5060068201915059604052602060405101925060006020840160005b8381101561032e57600285015160001a610100600187015160001a020160008052855160001a6002811461028857600887019650600160146101000a03600c880351166000526014870196506102da565b600487015160001a610100600389015160001a02016040810260208c0101600689015160001a61010060058b015160001a0201600160146101000a03600c8284510103511660005260088a0199505050505b506000516000808389846207a120fa3d6000863e846040850260208d0101523d6040850260408d01015282880197503d850194503d860195503d86036020850260208c010152505050600181019050610237565b5081855260208101604052505050508082945094505050509150915600a165627a7a72305820a59ccdeaea2ca1ae600d4fa53c50b6bbf1fe826263037342a6f3ec9709e0ee630029",
+  "deployedBytecode": "0x608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063124542e314610046575b600080fd5b34801561005257600080fd5b506100ad600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290505050610194565b604051808060200180602001838103835285818151815260200191508051906020019080838360005b838110156100f15780820151818401526020810190506100d6565b50505050905090810190601f16801561011e5780820380516001836020036101000a031916815260200191505b50838103825284818151815260200191508051906020019080838360005b8381101561015757808201518184015260208101905061013c565b50505050905090810190601f1680156101845780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b606080606080606060208601600381015160001a610100600283015160001a020159604052604051945060408102855260005b600282028110156101e9576000602082026020880101526001810190506101c7565b5059604052604051935060208102845260005b8181101561021b576000602082026020870101526001810190506101fc565b5060068201915059604052602060405101925060006020840160005b8381101561032e57600285015160001a610100600187015160001a020160008052855160001a6002811461028857600887019650600160146101000a03600c880351166000526014870196506102da565b600487015160001a610100600389015160001a02016040810260208c0101600689015160001a61010060058b015160001a0201600160146101000a03600c8284510103511660005260088a0199505050505b506000516000808389846207a120fa3d6000863e846040850260208d0101523d6040850260408d01015282880197503d850194503d860195503d86036020850260208c010152505050600181019050610237565b5081855260208101604052505050508082945094505050509150915600a165627a7a72305820a59ccdeaea2ca1ae600d4fa53c50b6bbf1fe826263037342a6f3ec9709e0ee630029",
+  "sourceMap": "243:9615:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;243:9615:2;;;;;;;",
+  "deployedSourceMap": "243:9615:2:-;;;;;;;;;;;;;;;;;;;;;;;;268:9588;;8:9:-1;5:2;;;30:1;27;20:12;5:2;268:9588:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;268:9588:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;268:9588:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;330:5;344;707:30;833:26;952:25;1244:2;1233:9;1228:20;1475:1;1470:3;1465:13;1458:22;1455:1;1449:33;1427:3;1418:1;1413:3;1408:13;1401:22;1398:1;1392:33;1387:44;1366:130;1563:7;1557:4;1550:21;1688:4;1682:11;1661:32;;1895:2;1886:7;1881:18;1777:17;1753:160;2004:1;1989:305;2027:1;2018:7;2014:15;2011:1;2008:22;1989:305;;;2261:1;2213:2;2210:1;2205:11;2152:2;2133:17;2128:27;2097:142;2068:212;2045:1;2042;2038:9;2033:14;;1989:305;;;1993:14;2361:7;2355:4;2348:21;2466:4;2460:11;2443:28;;2691:2;2682:7;2677:18;2555:13;2531:178;2827:1;2812:293;2837:7;2834:1;2831:14;2812:293;;;3072:1;3024:2;3021:1;3016:11;2963:2;2948:13;2943:23;2912:138;2883:208;2860:1;2857;2853:9;2848:14;;2812:293;;;2816:14;3179:1;3174:3;3169:13;3162:20;;3249:7;3243:4;3236:21;3372:2;3365:4;3359:11;3354:21;3338:37;;3475:1;3568:2;3554:12;3549:22;3651:1;3627:5757;3670:7;3658:10;3655:23;3627:5757;;;3925:1;3920:3;3915:13;3908:22;3905:1;3899:33;3873:3;3864:1;3859:3;3854:13;3847:22;3844:1;3838:33;3833:44;3808:142;4064:66;4057:4;4049:83;4224:3;4217:12;4214:1;4208:23;4253:1;4248:1776;;;;6235:1;6230:3;6225:13;6218:20;;6664:1;6659:2;6654:3;6650:12;6645:22;6523:2;6518:3;6514:12;6474:83;6370:323;6339:4;6331:384;6843:2;6838:3;6833:14;6826:21;;4201:2665;;4248:1776;4528:1;4523:3;4518:13;4511:22;4508:1;4502:33;4472:3;4463:1;4458:3;4453:13;4446:22;4443:1;4437:33;4432:44;4403:154;4912:2;4901:9;4896:19;4800:2;4781:17;4777:26;4680:257;5183:1;5178:3;5173:13;5166:22;5163:1;5157:33;5127:3;5118:1;5113:3;5108:13;5101:22;5098:1;5092:33;5087:44;5058:154;5826:1;5821:2;5816:3;5812:12;5807:22;5685:2;5644:6;5586:18;5580:25;5534:117;5492:196;5452:267;5348:507;5317:4;5309:568;6003:1;5998:3;5993:13;5986:20;;4255:1769;;;4201:2665;;7012:4;7005:13;7509:1;7456;7384:10;7283:3;7216:9;7163:6;7105:406;7770:16;7742:1;7699:17;7658:151;8122:17;8067:2;8055:10;8050:20;8017:2;7998:17;7993:27;7960:136;7927:234;8551:16;8496:2;8484:10;8479:20;8407:2;8388:17;8383:27;8350:175;8317:273;8725:10;8720:3;8715:22;8708:29;;8846:16;8827:17;8823:41;8802:62;;8953:16;8933:18;8928:43;8906:65;;9295:16;9275:18;9270:43;9214:2;9202:10;9198:19;9129:2;9114:13;9110:22;9075:169;9042:293;7068:2285;3716:5668;;3711:1;3699:10;3695:18;3681:32;;3627:5757;;;3631:23;9481:18;9467:12;9460:41;9777:2;9758:17;9753:28;9747:4;9740:43;997:8796;;;;9820:12;9834:13;9811:38;;;;268:9588;;;;;;:::o",
+  "source": "/*\n \n * source       https://github.com/MCROEngineering/zoom/\n * @name        Zoom Contract\n * @package     ZoomDev\n * @author      Micky Socaci <micky@mcro.tech>\n * @license     MIT\n\n Generic ABI Batch caller \n\n*/\n\npragma solidity ^0.4.25;\n\n\ncontract Zoom {\n    \n    function combine(bytes memory inputData) public view returns (bytes memory, bytes memory) {\n\n        // 0x00 - we use for scratch memory\n        // 0x20 - not used\n        // 0x40 - free memory pointer\n\n        // holds call result pointer addresses that we use to load reference \n        // call addresses, and populate \"resultAddresses\" and \"OutputBuffer\"\n        // 1st word: address address\n        // 2nd word: uint256 length\n        bytes memory internalAddresses; \n        \n        // holds result \"start\" addresses and their length in output buffer\n        bytes memory resultOffsets; \n        \n        // binary continuous buffer containing the resulting call values\n        bytes memory OutputBuffer;\n\n        assembly {\n            \n            // [0-1] version\n            // [2-3] number of calls\n            // [4-5] expected result length\n\n            // add 32 since input is treated as variable and has 2 32 byte words.\n            let ptr := add( inputData, 32 )\n\n            // get number of calls -> mul first byte by 256 and add the rest from byte 2\n            let callnum := add(\n                mul( byte( 0, mload( add( ptr, 2 ) ) ), 256),\n                byte( 0, mload( add( ptr, 3 ) ) )\n            )\n\n            // move free memory pointer\n            mstore(0x40, msize()) \n            \n            // move and resize internalAddresses in new memory\n            internalAddresses := mload(0x40)\n\n            // store length in first 32 bytes\n            mstore(\n                internalAddresses,\n                // 64 bytes for each result.. 32 address / 32 length\n                mul( callnum, 64 )\n            ) \n    \n            // allocate free space for internalAddresses\n            for { let n := 0 } lt(n, mul(callnum, 2)) { n := add(n, 1) } {\n                mstore( \n                    add ( \n                        add (internalAddresses, 32), // offset by 32 ( len )\n                        mul( n, 32) \n                    ),\n                    0\n                )\n            }\n\n            // move free memory pointer\n            mstore(0x40, msize()) \n\n            // move and resize resultOffsets in new memory\n            resultOffsets := mload(0x40)\n\n            // store length in first 32 bytes\n            mstore(\n                resultOffsets,\n                // 32 bytes for each result.. as we want to be able to just mstore / mload\n                mul( callnum, 32 )\n            ) \n    \n            // allocate free space for resultOffsets starting in data address space\n            for { let n := 0 } lt(n, callnum) { n := add(n, 1) } {\n                mstore( \n                    add ( \n                        add (resultOffsets, 32), // offset by 32 ( len )\n                        mul( n, 32) \n                    ),\n                    0\n                )\n            }\n\n            // shift pointer to call start\n            ptr := add( ptr, 6 )\n\n            // move free memory pointer\n            mstore(0x40, msize()) \n            \n            // move OutputBuffer to free memory space\n            OutputBuffer := add( mload(0x40), 32)\n\n            // save length so we can set it in OutputBuffer\n            let actualResultLength := 0\n\n            // set write pointer \n            let thisOutputPointer := add( OutputBuffer, 32)\n            \n            // process calls \n            for { let callNumber := 0 } lt(callNumber, callnum) { callNumber := add(callNumber, 1) } {\n\n                // get call data length in bytes [1-2]\n                let dataLength := add(\n                    mul( byte( 0, mload( add( ptr, 1 ) ) ), 256),\n                    byte( 0, mload( add( ptr, 2 ) ) )\n                )\n\n                // clean up 0-32 byte scratch area so we can store a new address\n                mstore( 0x00 , 0x0000000000000000000000000000000000000000000000000000000000000000 )\n                \n                // call type cases\n                switch byte( 0, mload( ptr ) )\n                case 2 {\n                    \n                    // read result_id where the \"to address\" is expected ( bytes[3-4] )\n                    let result_id := add(\n                        mul( byte( 0, mload( add( ptr, 3 ) ) ), 256),\n                        byte( 0, mload( add( ptr, 4 ) ) )\n                    )\n                    \n                    // find our result's address space\n                    let resultStartAddress := add(\n                        // shift pointer by 32 bytes, to data space\n                        add(internalAddresses, 32),\n                        // now multiply by 2 words ( record size )\n                        mul( result_id, 64)\n                    )\n                    \n                    // read offset for the result ( bytes[5-6] )\n                    let offset := add(\n                        mul( byte( 0, mload( add( ptr, 5 ) ) ), 256),\n                        byte( 0, mload( add( ptr, 6 ) ) )\n                    )\n    \n                    // load the contract address we're going to \"call\"\n                    mstore (0x00, \n                        and( \n                            // load 32 bytes, 12 garbage + 20 address\n                            mload( \n                                sub( \n                                    add( \n                                        mload(resultStartAddress), \n                                    offset),\n                                12) \n                            ),\n                            // 20 byte address \"bytemask\"\n                            sub( exp(256, 20), 1 )\n                        )\n                    )\n                   \n                    // shift pointer by 8 bytes, to call data space\n                    ptr := add( ptr, 8 )\n                }\n                default {\n                    // type 1 contains address in the next 20 bytes bytes [8-28]\n                    // shift pointer by 8 bytes, to address space\n                    ptr := add( ptr, 8 )\n\n                    // load the contract address we're going to \"call\"\n                    mstore (0x00, \n                        and( \n                            // load 32 bytes, 12 garbage + 20 address\n                            mload( \n                                sub(ptr, 12) \n                            ),\n                            // 20 byte address \"bytemask\"\n                            sub( exp(256, 20), 1 )\n                        )\n                    )\n                    \n                    // shift pointer by 20 bytes, to call data space\n                    ptr := add( ptr, 20 )\n\n                }\n                \n                // finally load our address into a stack variable that our call can use\n                let toAddress := mload( 0x00 )\n\n                // do the call!\n                {\n                    let success := staticcall(      \n                                        500000,     \n                                        toAddress ,     // To addr\n                                        ptr,            // Inputs are stored at current ptr location\n                                        dataLength,     // input length\n                                        0,          \n                                        0)          \n        \n                    // copy result byte size from return value ( ignore first 32 bytes ) ( next 32 bytes )\n                    returndatacopy( \n                        thisOutputPointer,\n                        0, \n                        returndatasize() \n                    )\n                    \n                    // save result address in so we can easily reference it\n                    mstore( \n                        add(\n                            add( internalAddresses, 32),\n                            mul( callNumber, 64)\n                        ),\n                        thisOutputPointer\n                    )\n\n                    // save result length so we know how many bytes to read when\n                    // preparing return OutputBuffer\n                    mstore( \n                        add(\n                            add( internalAddresses, 64), // add 32 so we're in the result space\n                            mul( callNumber, 64)\n                        ),\n                        returndatasize() \n                    )\n                    \n                    // shift pointer by data length.. so we're at next call\n                    ptr := add( ptr, dataLength )\n\n                    // move write pointer \n                    thisOutputPointer := add(thisOutputPointer, returndatasize() )\n                    \n                    actualResultLength := add( actualResultLength, returndatasize() )\n\n                    // store result start offset\n                    mstore( \n                        add ( \n                            add(resultOffsets, 32), // offset by 32 bytes to data space\n                            mul(callNumber, 32) \n                        ),\n                        sub( actualResultLength, returndatasize() )\n                    )\n                }\n                \n            }\n            \n            // set result length for OutputBuffer\n            mstore(OutputBuffer, actualResultLength ) \n\n            // move free memory pointer so return does not overwrite our OutputBuffer\n            // msize() breaks here for some reason.. so we move free memory space\n            // address by hand using the write pointer.\n            mstore(0x40, add( thisOutputPointer, 32 ) )\n        }\n        \n        return ( OutputBuffer, resultOffsets );\n    }\n}\n\n",
+  "sourcePath": "/Volumes/Dev/blockbits/zoomdev/contracts/Zoom.sol",
+  "ast": {
+    "absolutePath": "/Volumes/Dev/blockbits/zoomdev/contracts/Zoom.sol",
+    "exportedSymbols": {
+      "Zoom": [
+        782
+      ]
+    },
+    "id": 783,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 757,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "216:24:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 782,
+        "linearizedBaseContracts": [
+          782
+        ],
+        "name": "Zoom",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 780,
+              "nodeType": "Block",
+              "src": "358:9498:2",
+              "statements": [
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 767,
+                      "name": "internalAddresses",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 781,
+                      "src": "707:30:2",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes_memory_ptr",
+                        "typeString": "bytes"
+                      },
+                      "typeName": {
+                        "id": 766,
+                        "name": "bytes",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "707:5:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage_ptr",
+                          "typeString": "bytes"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 768,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "707:30:2"
+                },
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 770,
+                      "name": "resultOffsets",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 781,
+                      "src": "833:26:2",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes_memory_ptr",
+                        "typeString": "bytes"
+                      },
+                      "typeName": {
+                        "id": 769,
+                        "name": "bytes",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "833:5:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage_ptr",
+                          "typeString": "bytes"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 771,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "833:26:2"
+                },
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 773,
+                      "name": "OutputBuffer",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 781,
+                      "src": "952:25:2",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes_memory_ptr",
+                        "typeString": "bytes"
+                      },
+                      "typeName": {
+                        "id": 772,
+                        "name": "bytes",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "952:5:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage_ptr",
+                          "typeString": "bytes"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 774,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "952:25:2"
+                },
+                {
+                  "externalReferences": [
+                    {
+                      "inputData": {
+                        "declaration": 759,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "1233:9:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "1661:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "1777:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "2133:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "resultOffsets": {
+                        "declaration": 770,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "2443:13:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "resultOffsets": {
+                        "declaration": 770,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "2555:13:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "resultOffsets": {
+                        "declaration": 770,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "2948:13:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "OutputBuffer": {
+                        "declaration": 773,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "3338:12:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "OutputBuffer": {
+                        "declaration": 773,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "3554:12:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "4781:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "7998:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "8388:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "OutputBuffer": {
+                        "declaration": 773,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "9467:12:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "resultOffsets": {
+                        "declaration": 770,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "9114:13:2",
+                        "valueSize": 1
+                      }
+                    }
+                  ],
+                  "id": 775,
+                  "nodeType": "InlineAssembly",
+                  "operations": "{\n    let ptr := add(inputData, 32)\n    let callnum := add(mul(byte(0, mload(add(ptr, 2))), 256), byte(0, mload(add(ptr, 3))))\n    mstore(0x40, msize())\n    internalAddresses := mload(0x40)\n    mstore(internalAddresses, mul(callnum, 64))\n    for {\n        let n := 0\n    }\n    lt(n, mul(callnum, 2))\n    {\n        n := add(n, 1)\n    }\n    {\n        mstore(add(add(internalAddresses, 32), mul(n, 32)), 0)\n    }\n    mstore(0x40, msize())\n    resultOffsets := mload(0x40)\n    mstore(resultOffsets, mul(callnum, 32))\n    for {\n        let n := 0\n    }\n    lt(n, callnum)\n    {\n        n := add(n, 1)\n    }\n    {\n        mstore(add(add(resultOffsets, 32), mul(n, 32)), 0)\n    }\n    ptr := add(ptr, 6)\n    mstore(0x40, msize())\n    OutputBuffer := add(mload(0x40), 32)\n    let actualResultLength := 0\n    let thisOutputPointer := add(OutputBuffer, 32)\n    for {\n        let callNumber := 0\n    }\n    lt(callNumber, callnum)\n    {\n        callNumber := add(callNumber, 1)\n    }\n    {\n        let dataLength := add(mul(byte(0, mload(add(ptr, 1))), 256), byte(0, mload(add(ptr, 2))))\n        mstore(0x00, 0x0000000000000000000000000000000000000000000000000000000000000000)\n        switch byte(0, mload(ptr))\n        case 2 {\n            let result_id := add(mul(byte(0, mload(add(ptr, 3))), 256), byte(0, mload(add(ptr, 4))))\n            let resultStartAddress := add(add(internalAddresses, 32), mul(result_id, 64))\n            let offset := add(mul(byte(0, mload(add(ptr, 5))), 256), byte(0, mload(add(ptr, 6))))\n            mstore(0x00, and(mload(sub(add(mload(resultStartAddress), offset), 12)), sub(exp(256, 20), 1)))\n            ptr := add(ptr, 8)\n        }\n        default {\n            ptr := add(ptr, 8)\n            mstore(0x00, and(mload(sub(ptr, 12)), sub(exp(256, 20), 1)))\n            ptr := add(ptr, 20)\n        }\n        let toAddress := mload(0x00)\n        {\n            let success := staticcall(500000, toAddress, ptr, dataLength, 0, 0)\n            returndatacopy(thisOutputPointer, 0, returndatasize())\n            mstore(add(add(internalAddresses, 32), mul(callNumber, 64)), thisOutputPointer)\n            mstore(add(add(internalAddresses, 64), mul(callNumber, 64)), returndatasize())\n            ptr := add(ptr, dataLength)\n            thisOutputPointer := add(thisOutputPointer, returndatasize())\n            actualResultLength := add(actualResultLength, returndatasize())\n            mstore(add(add(resultOffsets, 32), mul(callNumber, 32)), sub(actualResultLength, returndatasize()))\n        }\n    }\n    mstore(OutputBuffer, actualResultLength)\n    mstore(0x40, add(thisOutputPointer, 32))\n}",
+                  "src": "988:8829:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "id": 776,
+                        "name": "OutputBuffer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 773,
+                        "src": "9820:12:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 777,
+                        "name": "resultOffsets",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 770,
+                        "src": "9834:13:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "id": 778,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "9818:31:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_bytes_memory_ptr_$_t_bytes_memory_ptr_$",
+                      "typeString": "tuple(bytes memory,bytes memory)"
+                    }
+                  },
+                  "functionReturnParameters": 765,
+                  "id": 779,
+                  "nodeType": "Return",
+                  "src": "9811:38:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 781,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "combine",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 760,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 759,
+                  "name": "inputData",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 781,
+                  "src": "285:22:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 758,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "285:5:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "284:24:2"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 765,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 762,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 781,
+                  "src": "330:5:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 761,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "330:5:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 764,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 781,
+                  "src": "344:5:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 763,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "344:5:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "329:28:2"
+            },
+            "scope": 782,
+            "src": "268:9588:2",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 783,
+        "src": "243:9615:2"
+      }
+    ],
+    "src": "216:9644:2"
+  },
+  "legacyAST": {
+    "absolutePath": "/Volumes/Dev/blockbits/zoomdev/contracts/Zoom.sol",
+    "exportedSymbols": {
+      "Zoom": [
+        782
+      ]
+    },
+    "id": 783,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 757,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "216:24:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 782,
+        "linearizedBaseContracts": [
+          782
+        ],
+        "name": "Zoom",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 780,
+              "nodeType": "Block",
+              "src": "358:9498:2",
+              "statements": [
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 767,
+                      "name": "internalAddresses",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 781,
+                      "src": "707:30:2",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes_memory_ptr",
+                        "typeString": "bytes"
+                      },
+                      "typeName": {
+                        "id": 766,
+                        "name": "bytes",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "707:5:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage_ptr",
+                          "typeString": "bytes"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 768,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "707:30:2"
+                },
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 770,
+                      "name": "resultOffsets",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 781,
+                      "src": "833:26:2",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes_memory_ptr",
+                        "typeString": "bytes"
+                      },
+                      "typeName": {
+                        "id": 769,
+                        "name": "bytes",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "833:5:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage_ptr",
+                          "typeString": "bytes"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 771,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "833:26:2"
+                },
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 773,
+                      "name": "OutputBuffer",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 781,
+                      "src": "952:25:2",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes_memory_ptr",
+                        "typeString": "bytes"
+                      },
+                      "typeName": {
+                        "id": 772,
+                        "name": "bytes",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "952:5:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage_ptr",
+                          "typeString": "bytes"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 774,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "952:25:2"
+                },
+                {
+                  "externalReferences": [
+                    {
+                      "inputData": {
+                        "declaration": 759,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "1233:9:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "1661:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "1777:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "2133:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "resultOffsets": {
+                        "declaration": 770,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "2443:13:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "resultOffsets": {
+                        "declaration": 770,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "2555:13:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "resultOffsets": {
+                        "declaration": 770,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "2948:13:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "OutputBuffer": {
+                        "declaration": 773,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "3338:12:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "OutputBuffer": {
+                        "declaration": 773,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "3554:12:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "4781:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "7998:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "internalAddresses": {
+                        "declaration": 767,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "8388:17:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "OutputBuffer": {
+                        "declaration": 773,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "9467:12:2",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "resultOffsets": {
+                        "declaration": 770,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "9114:13:2",
+                        "valueSize": 1
+                      }
+                    }
+                  ],
+                  "id": 775,
+                  "nodeType": "InlineAssembly",
+                  "operations": "{\n    let ptr := add(inputData, 32)\n    let callnum := add(mul(byte(0, mload(add(ptr, 2))), 256), byte(0, mload(add(ptr, 3))))\n    mstore(0x40, msize())\n    internalAddresses := mload(0x40)\n    mstore(internalAddresses, mul(callnum, 64))\n    for {\n        let n := 0\n    }\n    lt(n, mul(callnum, 2))\n    {\n        n := add(n, 1)\n    }\n    {\n        mstore(add(add(internalAddresses, 32), mul(n, 32)), 0)\n    }\n    mstore(0x40, msize())\n    resultOffsets := mload(0x40)\n    mstore(resultOffsets, mul(callnum, 32))\n    for {\n        let n := 0\n    }\n    lt(n, callnum)\n    {\n        n := add(n, 1)\n    }\n    {\n        mstore(add(add(resultOffsets, 32), mul(n, 32)), 0)\n    }\n    ptr := add(ptr, 6)\n    mstore(0x40, msize())\n    OutputBuffer := add(mload(0x40), 32)\n    let actualResultLength := 0\n    let thisOutputPointer := add(OutputBuffer, 32)\n    for {\n        let callNumber := 0\n    }\n    lt(callNumber, callnum)\n    {\n        callNumber := add(callNumber, 1)\n    }\n    {\n        let dataLength := add(mul(byte(0, mload(add(ptr, 1))), 256), byte(0, mload(add(ptr, 2))))\n        mstore(0x00, 0x0000000000000000000000000000000000000000000000000000000000000000)\n        switch byte(0, mload(ptr))\n        case 2 {\n            let result_id := add(mul(byte(0, mload(add(ptr, 3))), 256), byte(0, mload(add(ptr, 4))))\n            let resultStartAddress := add(add(internalAddresses, 32), mul(result_id, 64))\n            let offset := add(mul(byte(0, mload(add(ptr, 5))), 256), byte(0, mload(add(ptr, 6))))\n            mstore(0x00, and(mload(sub(add(mload(resultStartAddress), offset), 12)), sub(exp(256, 20), 1)))\n            ptr := add(ptr, 8)\n        }\n        default {\n            ptr := add(ptr, 8)\n            mstore(0x00, and(mload(sub(ptr, 12)), sub(exp(256, 20), 1)))\n            ptr := add(ptr, 20)\n        }\n        let toAddress := mload(0x00)\n        {\n            let success := staticcall(500000, toAddress, ptr, dataLength, 0, 0)\n            returndatacopy(thisOutputPointer, 0, returndatasize())\n            mstore(add(add(internalAddresses, 32), mul(callNumber, 64)), thisOutputPointer)\n            mstore(add(add(internalAddresses, 64), mul(callNumber, 64)), returndatasize())\n            ptr := add(ptr, dataLength)\n            thisOutputPointer := add(thisOutputPointer, returndatasize())\n            actualResultLength := add(actualResultLength, returndatasize())\n            mstore(add(add(resultOffsets, 32), mul(callNumber, 32)), sub(actualResultLength, returndatasize()))\n        }\n    }\n    mstore(OutputBuffer, actualResultLength)\n    mstore(0x40, add(thisOutputPointer, 32))\n}",
+                  "src": "988:8829:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "id": 776,
+                        "name": "OutputBuffer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 773,
+                        "src": "9820:12:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 777,
+                        "name": "resultOffsets",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 770,
+                        "src": "9834:13:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "id": 778,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "9818:31:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_bytes_memory_ptr_$_t_bytes_memory_ptr_$",
+                      "typeString": "tuple(bytes memory,bytes memory)"
+                    }
+                  },
+                  "functionReturnParameters": 765,
+                  "id": 779,
+                  "nodeType": "Return",
+                  "src": "9811:38:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 781,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "combine",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 760,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 759,
+                  "name": "inputData",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 781,
+                  "src": "285:22:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 758,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "285:5:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "284:24:2"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 765,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 762,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 781,
+                  "src": "330:5:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 761,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "330:5:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 764,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 781,
+                  "src": "344:5:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 763,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "344:5:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "329:28:2"
+            },
+            "scope": 782,
+            "src": "268:9588:2",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 783,
+        "src": "243:9615:2"
+      }
+    ],
+    "src": "216:9644:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.25+commit.59dbf8f1.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.0-beta.1",
+  "updatedAt": "2018-11-16T04:43:43.465Z"
+}
