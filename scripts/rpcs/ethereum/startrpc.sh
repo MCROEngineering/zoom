@@ -25,6 +25,7 @@ if testrpc_running; then
     echo "Killing existing $softwareName instance at port $testrpc_port"
     kill -9 $( lsof -i -P | grep $testrpc_port | awk '{print $2}' ) > /dev/null
     echo "Starting new $softwareName instance at port $testrpc_port"
+    sleep 1
     start_testrpc
   else
     echo "Using $softwareName instance at port $testrpc_port"
