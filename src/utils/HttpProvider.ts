@@ -208,9 +208,9 @@ export default class HttpProvider {
      * @returns cache key string
      */
     public getCacheKey(payload: any): string {
+        let key;
         if (payload.length > 1) {
-            const key = "batch_" + CryptoJS.MD5(JSON.stringify(payload));
-            return key;
+            key = "batch_" + CryptoJS.MD5(JSON.stringify(payload));
         }
         else {
             if( payload.method === "eth_call" ) {
@@ -221,10 +221,9 @@ export default class HttpProvider {
                 ).toString();
                 */
 
-                return payload.params[0].to + "_" + payload.params[0].data;
+               key = payload.params[0].to + "_" + payload.params[0].data;
             }
-            return "";
         }
+        return key;
     }
-
 }

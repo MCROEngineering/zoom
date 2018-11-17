@@ -35,7 +35,7 @@ export default class ByteArray {
 	}
 
 	public get bytesAvailable(): number {
-		return this.writePosition - this.readPosition;
+		return this.buffer.length - this.readPosition;
 	}
 
 	public get length(): number {
@@ -73,6 +73,7 @@ export default class ByteArray {
 	}
 
 	public readBytes(buffer: ByteArray, offset: number = 0, length: number = 0): void {
+
 		if (offset < 0 || length < 0) {
 			throw new RangeError("Offset/Length can't be less than 0");
 		}
@@ -361,5 +362,9 @@ export default class ByteArray {
 				this.writeUnsignedByte(buffer[i]);
 			}
 		}
+	}
+
+	public advanceReadPositionBy(value: number) {
+		this.readPosition += value;
 	}
 }

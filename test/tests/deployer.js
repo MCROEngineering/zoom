@@ -1,22 +1,13 @@
-async function thisStep(setup) {
-
-    // how many records are we testing with
-    const TestDummyRecords = 10;
-
-    const OfficialWeb3                  = require('web3');
-    const HttpProvider                  = require("../web3/HttpProviderCache");
-    const WsProvider                    = require("../web3/WsProviderCache");
+module.exports = async function thisStep(setup) {
 
     const helpers                       = setup.helpers;
-    const utils                         = require('../helpers/utils');
-    const web3util                      = require('web3-utils');
     const globals                       = setup.globals;
-    
-    globals.TestDummyRecords = TestDummyRecords;
+    const utils                         = helpers.utils;
+    const TestDummyRecords              = globals.TestDummyRecords;
 
-    const ListContract                  = await helpers.utils.getAbiFile('ListContract');
-    const ItemEntity                    = await helpers.utils.getAbiFile('ItemEntity');
-    const Zoom                          = await helpers.utils.getAbiFile('Zoom');
+    const ListContract                  = await utils.getAbiFile('ListContract');
+    const ItemEntity                    = await utils.getAbiFile('ItemEntity');
+    const Zoom                          = await utils.getAbiFile('Zoom');
 
     let ItemEntity_address;
     let ItemEntityContractInstance;
@@ -28,9 +19,6 @@ async function thisStep(setup) {
     let ZoomContractInstance;
 
     const ItemAddresses = [];
-
-    let OneItemTotalGasUsage = 0;
-
     const fromAccount = "0x4b70518d879a4e2da4ad9cf0189b32d8dc6b7a9b";
 
     // Deploy Zoom contract
@@ -130,5 +118,3 @@ async function thisStep(setup) {
     utils.toLog( '' );
     
 }
-
-module.exports = thisStep;

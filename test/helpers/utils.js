@@ -174,12 +174,15 @@ module.exports = {
             tx.receipt.cumulativeGasUsed
         );
     },
-    async measureCallExecution(Call) {
+    async measureCallExecution(Call, gas = true) {
         const startTime = process.hrtime();
         const item = await Call.call();
         const endTime = process.hrtime(startTime);
         const actualTime = endTime[0] + endTime[1] / 1000000000;
-        const gasUsage = await Call.estimateGas();
+        let gasUsage = 0;
+        if(gas) {
+            gasUsage = await Call.estimateGas();
+        }
         const callBinary = Call.encodeABI();
         return {
             data: item,
@@ -187,5 +190,13 @@ module.exports = {
             time: actualTime,
             bin: callBinary,
         }
+    },
+    async measureExecution(Call) {
+        const startTime = process.hrtime();
+        const item = await Call();
+        const endTime = process.hrtime(startTime);
+        const actualTime = endTime[0] + endTime[1] / 1000000000;
+
+        return { item, actualTime }
     }
 };

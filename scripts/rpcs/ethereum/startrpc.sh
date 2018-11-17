@@ -15,7 +15,7 @@ testrpc_running() {
 
 start_testrpc() {
   # add -n for secure / lock
-  ganache-cli -a 10 -d -i 1 -p $testrpc_port -m "$seedWords" > scripts/TestRPCData/$moduleName.output.log &
+  ganache-cli -a 10 -d -i 1 -p $testrpc_port -l 50000000 -m "$seedWords" > scripts/TestRPCData/$moduleName.output.log &
   testrpc_pid=$!
   echo $testrpc_pid > scripts/TestRPCData/$moduleName.process.pid
 }

@@ -1,24 +1,23 @@
-const rpcHost = "http://127.0.0.1:8545/";
-const testnetHost = "https://rinkeby.infura.io/";
+async function runTests() {
 
-const tests = [
-    'test',
-    'web3.solo',
-    'web3.multi',
-    // 'zoom'
-];
+    const useReferenceCalls = true;
+    const TestDummyRecords  = 100;
+    const rpcHost           = "http://127.0.0.1:8545/";
+    const testnetHost       = "https://rinkeby.infura.io/";
 
-const assert                    = require("chai").assert;
-const OfficialWeb3              = require('web3');
-const HttpProvider              = require("./web3/HttpProviderCache");
-const web3util                  = require('web3-utils');
-const utils                     = require('./helpers/utils');
-const { assertInvalidOpcode }   = require('./helpers/assertThrow');
-const BigNumber                 = require('bignumber.js');
-BigNumber.config({ DECIMAL_PLACES: 0, ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
+    const tests = [
+        'web3.solo',
+        'web3.multi',
+        'zoom'
+    ];
 
-
-const runTests = async() => {
+    const assert                    = require("chai").assert;
+    const OfficialWeb3              = require('web3');
+    const HttpProvider              = require("./web3/HttpProviderCache");
+    const web3util                  = require('web3-utils');
+    const utils                     = require('./helpers/utils');
+    const BigNumber                 = require('bignumber.js');
+    BigNumber.config({ DECIMAL_PLACES: 0, ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
 
     const setup = {
         network: process.argv[3],
@@ -26,7 +25,6 @@ const runTests = async() => {
     };
     
     let Provider;
-
     if(setup.network === "local") {
         Provider = new HttpProvider["default"]( rpcHost );
     } else {
@@ -44,6 +42,12 @@ const runTests = async() => {
         BigNumber
     };
 
+    setup.globals.TestDummyRecords = TestDummyRecords; 
+    setup.globals.use_reference_calls = useReferenceCalls;
+
+    // console.log( setup.network  );
+    // process.exit();
+
     if(setup.network === "local") {
         // instantiate deployer if needed
         try {
@@ -53,12 +57,30 @@ const runTests = async() => {
             console.log("error:", e);
         }
     } else {
-        // else load testnet addresses
 
+        const ListContract           = await utils.getAbiFile('ListContract');
+        const ItemEntity             = await utils.getAbiFile('ItemEntity');
+        const Zoom                   = await utils.getAbiFile('Zoom');
+
+        const ListContract_address   = "0x60b1151b564b3d2321ce641914001ec97d009d47"
+        const ZoomContract_address   = "0xe07a33e2975b7012eb9bf002aa12aba98d7069dc";
+
+        // consume addresses
+        const ListContractInstance   = await new web3.eth.Contract(ListContract.abi, ListContract_address);
+        const ZoomContractInstance   = await new web3.eth.Contract(Zoom.abi, ZoomContract_address);
+
+        setup.globals.ListContractInstance = ListContractInstance;
+        setup.globals.ZoomContractInstance = ZoomContractInstance;
+
+        setup.globals.abis = {};
+        setup.globals.abis.ItemEntity = ItemEntity.abi;
+        setup.globals.abis.ListContract = ListContract.abi;
+        setup.globals.abis.Zoom = Zoom.abi;
+
+        // setup.globals.TestDummyRecords = await ListContractInstance.methods.itemNum().call();
+ 
     }
 
-    setup.globals.runningTests = [];
-    
     // setup in test globals.. ugly hack but it works.
     global.setup = setup;
     global.assert = assert;
@@ -76,6 +98,10 @@ const runTests = async() => {
         // Instantiate a Mocha instance.
         const mocha = new Mocha();
 
+        mocha.slow(10);
+        mocha.timeout(600000);
+
+
         for( let i = 0; i < tests.length; i++) {
             mocha.addFile(
                 "test/tests/" + tests[i] + ".js"
@@ -83,9 +109,12 @@ const runTests = async() => {
         }
 
         // Run the tests.
-        const runner = mocha.run(function(failures){
-            process.exitCode = failures ? 1 : 0;  // exit with non-zero status if there were failures
-        });
+        const runner = mocha.run(
+            function(failures){
+                process.exitCode = failures ? 1 : 0;  // exit with non-zero status if there were failures
+            }, 
+            true // delay execution of root suite until ready. 
+        );
 
         runner.on("end", (e) => {
 
@@ -97,11 +126,11 @@ const runTests = async() => {
                 console.log("error:", e);
             }
 
+            // terminate process
             process.exit( process.exitCode );
         });
 
     }
-
 };
 
 runTests();
