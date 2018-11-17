@@ -11,7 +11,7 @@ echo "--------------------------------------------------------------------"
 #  --colors \
 #  --paths -p ./ ./test/run_tests.js 
 
-node test/run_tests.js --network local
+node test/run_tests.js --network $1
 
 echo "--------------------------------------------------------------------"
 echo ""

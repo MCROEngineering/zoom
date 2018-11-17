@@ -37,7 +37,7 @@ export default class Zoom {
      * @param {cache} - ZoomOptions
      * @returns hex string
      */
-    getZoomCall(cache: {}): string;
+    getZoomCall(cache: {}): Buffer;
     /**
      * Concatenate all binary calls we have into one large string
      * @param data - the string containing all the calls we want to make

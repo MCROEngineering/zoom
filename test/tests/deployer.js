@@ -1,22 +1,13 @@
-async function thisStep(setup) {
-
-    // how many records are we testing with
-    const TestDummyRecords = 10;
-
-    const OfficialWeb3                  = require('web3');
-    const HttpProvider                  = require("../web3/HttpProviderCache");
-    const WsProvider                    = require("../web3/WsProviderCache");
+module.exports = async function thisStep(setup) {
 
     const helpers                       = setup.helpers;
-    const utils                         = require('../helpers/utils');
-    const web3util                      = require('web3-utils');
     const globals                       = setup.globals;
-    
-    globals.TestDummyRecords = TestDummyRecords;
+    const utils                         = helpers.utils;
+    const TestDummyRecords              = globals.TestDummyRecords;
 
-    const ListContract                  = await helpers.utils.getAbiFile('ListContract');
-    const ItemEntity                    = await helpers.utils.getAbiFile('ItemEntity');
-    const ZoomTest                      = await helpers.utils.getAbiFile('ZoomTest');
+    const ListContract                  = await utils.getAbiFile('ListContract');
+    const ItemEntity                    = await utils.getAbiFile('ItemEntity');
+    const Zoom                          = await utils.getAbiFile('Zoom');
 
     let ItemEntity_address;
     let ItemEntityContractInstance;
@@ -28,14 +19,11 @@ async function thisStep(setup) {
     let ZoomContractInstance;
 
     const ItemAddresses = [];
-
-    let OneItemTotalGasUsage = 0;
-
     const fromAccount = "0x4b70518d879a4e2da4ad9cf0189b32d8dc6b7a9b";
 
     // Deploy Zoom contract
-    await new helpers.web3.eth.Contract(ZoomTest.abi, "0x0000000000000000000000000000000000000000").deploy({
-        data: ZoomTest.bytecode
+    await new helpers.web3.eth.Contract(Zoom.abi, "0x0000000000000000000000000000000000000000").deploy({
+        data: Zoom.bytecode
     }).send({
         from: fromAccount,
         gas: 6700000,
@@ -84,7 +72,7 @@ async function thisStep(setup) {
     // consume addresses
     ItemEntityContractInstance = await new helpers.web3.eth.Contract(ItemEntity.abi, ItemEntity_address);
     ListContractInstance =       await new helpers.web3.eth.Contract(ListContract.abi, ListContract_address);
-    ZoomContractInstance =       await new helpers.web3.eth.Contract(ZoomTest.abi, ZoomContract_address);
+    ZoomContractInstance =       await new helpers.web3.eth.Contract(Zoom.abi, ZoomContract_address);
 
     globals.ItemEntityContractInstance = ItemEntityContractInstance;
     globals.ListContractInstance = ListContractInstance;
@@ -93,7 +81,7 @@ async function thisStep(setup) {
     globals.abis = {};
     globals.abis.ItemEntity = ItemEntity.abi;
     globals.abis.ListContract = ListContract.abi;
-    globals.abis.ZoomTest = ZoomTest.abi;
+    globals.abis.Zoom = Zoom.abi;
 
     utils.toLog(
         ' ----------------------------------------------------------------\n'+
@@ -118,7 +106,6 @@ async function thisStep(setup) {
     }
 
     // add linked records ( for type 1 )
-
     const itemNum = await ListContractInstance.methods.itemNum().call();
     utils.toLog( ' ListContract item count: ' + utils.colors.orange + itemNum + utils.colors.none + '.' );
     utils.toLog( '' );
@@ -131,5 +118,3 @@ async function thisStep(setup) {
     utils.toLog( '' );
     
 }
-
-module.exports = thisStep;

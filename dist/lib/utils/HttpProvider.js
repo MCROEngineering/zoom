@@ -29,18 +29,10 @@ class HttpProvider {
         this.cache = {};
     }
     /**
-     * Should be used to make async request
+     * Create and return a new XMLHttpRequest
      *
-     * @method useCache
-     * @param {Object} payload
-     * @param {Function} callback triggered on end with (err, result)
+     * @returns {XMLHttpRequest}
      */
-    useCache(val) {
-        this.usecache = val;
-    }
-    setCache(data) {
-        this.cache = data;
-    }
     _prepareRequest() {
         const request = new XHR2();
         request.open('POST', this.host, true);
@@ -109,23 +101,56 @@ class HttpProvider {
             callback(errors.InvalidConnection(this.host));
         }
     }
+    /**
+     * Enable request caching
+     *
+     * @param boolean
+     */
+    enableCache(setting) {
+        this.usecache = setting;
+    }
+    /**
+     * Set caching object reference
+     *
+     * @param {object}
+     */
+    setCache(data) {
+        this.cache = data;
+    }
+    /**
+     * Retrieve data from cache by payload
+     *
+     * @param {payload} object
+     * @returns {result} cached rpc result
+     */
     fromCache(payload) {
         const cacheKey = this.getCacheKey(payload);
-        console.log("fromCache", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
         return {
             jsonrpc: payload.jsonrpc,
             id: payload.id,
             result: this.cache[cacheKey],
         };
     }
+    /**
+     * Retrieve data from cache by cache key
+     *
+     * @param cache key
+     * @param {payload} object
+     * @returns {result} cached rpc result
+     */
     fromCacheByKey(cacheKey, payload) {
-        console.log("fromCacheByKey", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
         return {
             jsonrpc: payload.jsonrpc,
             id: payload.id,
             result: this.cache[cacheKey],
         };
     }
+    /**
+     * Check if payload has a cached result stored
+     *
+     * @param {payload} object
+     * @returns boolean
+     */
     inCache(payload) {
         const cacheKey = this.getCacheKey(payload);
         console.log("inCache", cacheKey, JSON.stringify(payload));
@@ -134,21 +159,37 @@ class HttpProvider {
         }
         return false;
     }
+    /**
+     * Check if cacheKey has a cached result stored
+     *
+     * @param cache key
+     * @returns boolean
+     */
     inCacheByKey(cacheKey) {
         if (this.cache.hasOwnProperty(cacheKey)) {
             return true;
         }
         return false;
     }
+    /**
+     * Save result in cache
+     *
+     * @param {payload} rpc call
+     * @param {result} rpc result
+     */
     toCache(payload, result) {
-        const cacheKey = this.getCacheKey(payload);
-        console.log("toCache", cacheKey, JSON.stringify(payload), JSON.stringify(result));
-        this.cache[cacheKey] = result.result;
+        this.cache[this.getCacheKey(payload)] = result.result;
     }
+    /**
+     * Get cache key for payload - rpc call
+     *
+     * @param {payload} rpc call
+     * @returns cache key string
+     */
     getCacheKey(payload) {
+        let key;
         if (payload.length > 1) {
-            var key = "batch_" + crypto_js_1.default.MD5(JSON.stringify(payload));
-            return key;
+            key = "batch_" + crypto_js_1.default.MD5(JSON.stringify(payload));
         }
         else {
             if (payload.method === "eth_call") {
@@ -158,10 +199,10 @@ class HttpProvider {
                     + payload.params[0].data
                 ).toString();
                 */
-                return payload.params[0].to + "_" + payload.params[0].data;
+                key = payload.params[0].to + "_" + payload.params[0].data;
             }
-            return "";
         }
+        return key;
     }
 }
 exports.default = HttpProvider;

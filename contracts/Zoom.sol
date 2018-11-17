@@ -37,9 +37,8 @@ contract Zoom {
             
             // [0-1] version
             // [2-3] number of calls
-            // [4-5] expected result length
 
-            // add 32 since input is treated as variable and has 2 32 byte words.
+            // add 32 since input is treated as a variable
             let ptr := add( inputData, 32 )
 
             // get number of calls -> mul first byte by 256 and add the rest from byte 2

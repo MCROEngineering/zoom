@@ -15,7 +15,7 @@ testrpc_running() {
 
 start_testrpc() {
   # add -n for secure / lock
-  ganache-cli -a 10 -d -i 1 -p $testrpc_port -m "$seedWords" > scripts/TestRPCData/$moduleName.output.log &
+  ganache-cli -a 10 -d -i 1 -p $testrpc_port -l 50000000 -m "$seedWords" > scripts/TestRPCData/$moduleName.output.log &
   testrpc_pid=$!
   echo $testrpc_pid > scripts/TestRPCData/$moduleName.process.pid
 }
@@ -25,6 +25,7 @@ if testrpc_running; then
     echo "Killing existing $softwareName instance at port $testrpc_port"
     kill -9 $( lsof -i -P | grep $testrpc_port | awk '{print $2}' ) > /dev/null
     echo "Starting new $softwareName instance at port $testrpc_port"
+    sleep 1
     start_testrpc
   else
     echo "Using $softwareName instance at port $testrpc_port"

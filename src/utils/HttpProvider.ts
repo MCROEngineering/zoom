@@ -33,20 +33,10 @@ export default class HttpProvider {
     }
 
     /**
-     * Should be used to make async request
+     * Create and return a new XMLHttpRequest
      *
-     * @method useCache
-     * @param {Object} payload
-     * @param {Function} callback triggered on end with (err, result)
+     * @returns {XMLHttpRequest} 
      */
-    public useCache(val: boolean): void {
-        this.usecache = val;
-    }
-
-    public setCache(data: any): void {
-        this.cache = data;
-    }
-
     public _prepareRequest(): XMLHttpRequest {
         const request = new XHR2();
 
@@ -125,9 +115,32 @@ export default class HttpProvider {
         }
     }
 
-    public fromCache(payload: any) {
+    /**
+     * Enable request caching
+     *
+     * @param boolean
+     */
+    public enableCache(setting: boolean): void {
+        this.usecache = setting;
+    }
+
+    /**
+     * Set caching object reference
+     *
+     * @param {object}
+     */
+    public setCache(data: any): void {
+        this.cache = data;
+    }
+
+    /**
+     * Retrieve data from cache by payload
+     *
+     * @param {payload} object
+     * @returns {result} cached rpc result
+     */
+    public fromCache(payload: any): {} {
         const cacheKey = this.getCacheKey(payload);
-        console.log("fromCache", cacheKey, JSON.stringify(payload), JSON.stringify( this.cache[cacheKey] ) );
         return {
             jsonrpc: payload.jsonrpc,
             id: payload.id,
@@ -135,9 +148,14 @@ export default class HttpProvider {
         };
     }
 
-    public fromCacheByKey(cacheKey: string, payload: any) {
-        console.log("fromCacheByKey", cacheKey, JSON.stringify(payload), JSON.stringify( this.cache[cacheKey] ) );
-
+    /**
+     * Retrieve data from cache by cache key
+     *
+     * @param cache key
+     * @param {payload} object
+     * @returns {result} cached rpc result
+     */
+    public fromCacheByKey(cacheKey: string, payload: any): {} {
         return {
             jsonrpc: payload.jsonrpc,
             id: payload.id,
@@ -145,7 +163,13 @@ export default class HttpProvider {
         };
     }
 
-    public inCache(payload: any) {
+    /**
+     * Check if payload has a cached result stored
+     *
+     * @param {payload} object
+     * @returns boolean
+     */
+    public inCache(payload: any): boolean {
         const cacheKey = this.getCacheKey(payload);
         console.log("inCache", cacheKey, JSON.stringify(payload) );
         if (this.cache.hasOwnProperty(cacheKey)) {
@@ -154,23 +178,39 @@ export default class HttpProvider {
         return false;
     }
 
-    public inCacheByKey(cacheKey: string) {
+    /**
+     * Check if cacheKey has a cached result stored
+     *
+     * @param cache key
+     * @returns boolean
+     */
+    public inCacheByKey(cacheKey: string): boolean {
         if (this.cache.hasOwnProperty(cacheKey)) {
             return true;
         }
         return false;
     }
 
-    public toCache(payload: any, result: any) {
-        const cacheKey = this.getCacheKey(payload);
-        console.log("toCache", cacheKey, JSON.stringify(payload), JSON.stringify(result) );
-        this.cache[cacheKey] = result.result;
+    /**
+     * Save result in cache
+     *
+     * @param {payload} rpc call
+     * @param {result} rpc result
+     */
+    public toCache(payload: any, result: any): void {
+        this.cache[this.getCacheKey(payload)] = result.result;
     }
 
+    /**
+     * Get cache key for payload - rpc call
+     *
+     * @param {payload} rpc call
+     * @returns cache key string
+     */
     public getCacheKey(payload: any): string {
+        let key;
         if (payload.length > 1) {
-            var key = "batch_" + CryptoJS.MD5(JSON.stringify(payload));
-            return key;
+            key = "batch_" + CryptoJS.MD5(JSON.stringify(payload));
         }
         else {
             if( payload.method === "eth_call" ) {
@@ -181,10 +221,9 @@ export default class HttpProvider {
                 ).toString();
                 */
 
-                return payload.params[0].to + "_" + payload.params[0].data;
+               key = payload.params[0].to + "_" + payload.params[0].data;
             }
-            return "";
         }
+        return key;
     }
-
 }

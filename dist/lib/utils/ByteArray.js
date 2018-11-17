@@ -34,7 +34,7 @@ class ByteArray {
         }
     }
     get bytesAvailable() {
-        return this.writePosition - this.readPosition;
+        return this.buffer.length - this.readPosition;
     }
     get length() {
         return this.buffer.length;
@@ -291,6 +291,9 @@ class ByteArray {
                 this.writeUnsignedByte(buffer[i]);
             }
         }
+    }
+    advanceReadPositionBy(value) {
+        this.readPosition += value;
     }
 }
 exports.default = ByteArray;
