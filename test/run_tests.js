@@ -1,11 +1,3 @@
-const assert                    = require("chai").assert;
-const OfficialWeb3              = require('web3');
-const HttpProvider              = require("./web3/HttpProviderCache");
-const web3util                  = require('web3-utils');
-const utils                     = require('./helpers/utils');
-const { assertInvalidOpcode }   = require('./helpers/assertThrow');
-const BigNumber                 = require('bignumber.js');
-
 const rpcHost = "http://127.0.0.1:8545/";
 const testnetHost = "https://rinkeby.infura.io/";
 
@@ -13,8 +5,18 @@ const tests = [
     'test',
     'web3.solo',
     'web3.multi',
-    'zoom'
+    // 'zoom'
 ];
+
+const assert                    = require("chai").assert;
+const OfficialWeb3              = require('web3');
+const HttpProvider              = require("./web3/HttpProviderCache");
+const web3util                  = require('web3-utils');
+const utils                     = require('./helpers/utils');
+const { assertInvalidOpcode }   = require('./helpers/assertThrow');
+const BigNumber                 = require('bignumber.js');
+BigNumber.config({ DECIMAL_PLACES: 0, ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
+
 
 const runTests = async() => {
 
@@ -23,8 +25,6 @@ const runTests = async() => {
         globals: {},
     };
     
-    BigNumber.config({ DECIMAL_PLACES: 0, ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
-
     let Provider;
 
     if(setup.network === "local") {
@@ -37,17 +37,12 @@ const runTests = async() => {
     
     const web3 = await new OfficialWeb3(Provider);
 
-    const artifacts = {};
-
     setup.helpers = {
-        assertInvalidOpcode,
         utils,
         web3,
-        artifacts,
         web3util,
         BigNumber
     };
-
 
     if(setup.network === "local") {
         // instantiate deployer if needed

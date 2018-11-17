@@ -71,8 +71,11 @@ class Zoom {
      * @returns string
      */
     getBinaryCall() {
-        // make sure to sort these by type and have type 1 first, as we need to index them
-        // in order to use the results for addresses / other things
+        // sort our calls so type 1 are run first, otherwise we might end up with 
+        // type 2 calls that cannot resolve their "toAddress" references
+        this.binary.sort(function (textA, textB) {
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
         let data = "";
         for (let i = 0; i < this.binary.length; i++) {
             data += this.binary[i].toString("hex");

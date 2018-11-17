@@ -1,5 +1,4 @@
 async function thisStep(setup) {
-
     
     const OfficialWeb3                  = require('web3');
     const HttpProvider                  = require("../web3/HttpProviderCache");
@@ -33,7 +32,7 @@ async function thisStep(setup) {
                 Provider.useCache(false);
                 TestWeb3 = await new OfficialWeb3(Provider);
                 TestListContract = await new TestWeb3.eth.Contract(globals.abis.ListContract, ListContractInstance._address);
-                // utils.toLog( ' Provider initialised' );
+                utils.toLog( ' Provider initialised' );
             });
 
             after( async() => {
@@ -128,7 +127,7 @@ async function thisStep(setup) {
                     totalCalls++;
 
                     let resultingNumber = new helpers.BigNumber( result.data );
-                    let valdidation = new helpers.BigNumber(2).pow(64).sub(1);
+                    let valdidation = new helpers.BigNumber(2).exponentiatedBy(64).minus(1);
                     assert.isTrue( resultingNumber.toString() === valdidation.toString() , "Result is not 2**64-1");
                 });
 
@@ -141,7 +140,7 @@ async function thisStep(setup) {
                     totalCalls++;
 
                     let resultingNumber = new helpers.BigNumber( result.data );
-                    let valdidation = new helpers.BigNumber(2).pow(128).sub(1);
+                    let valdidation = new helpers.BigNumber(2).exponentiatedBy(128).minus(1);
                     assert.isTrue( resultingNumber.toString() === valdidation.toString() , "Result is not 2**128-1");
                 });
 
@@ -154,7 +153,7 @@ async function thisStep(setup) {
                     totalCalls++;
 
                     let resultingNumber = new helpers.BigNumber( result.data );
-                    let valdidation = new helpers.BigNumber(2).pow(256).sub(1);
+                    let valdidation = new helpers.BigNumber(2).exponentiatedBy(256).minus(1);
                     assert.isTrue( resultingNumber.toString() === valdidation.toString() , "Result is not 2**256-1");
                 });
 
@@ -278,6 +277,7 @@ async function thisStep(setup) {
             });
         });
 
+        /*
         describe("New Web3 instance using normal HTTP Provider", async() => {
 
             let TestWeb3;
@@ -445,6 +445,7 @@ async function thisStep(setup) {
             });
 
         });
+        */
 
     });
 }

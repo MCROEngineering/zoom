@@ -1,4 +1,4 @@
-// const data = require("./test.json");
+// const data = require("./large.data.json");
 const zoomlib = require("../dist/lib/index.js");
 
 // var HttpProvider = new index_1.HttpProvider();
@@ -6,6 +6,7 @@ const Zoom = new zoomlib.Zoom( {use_reference_calls: true} );
 
 const addr = "0x692a70d2e424a56d2c6c27aa97d1a86395877b3a";
 // const method = "f8a8fd6d"; // this is not used ...
+
 
 const data = {};
 
@@ -20,7 +21,12 @@ data["0x755014Da263Fc47d238078Bb47d217F743E5B6a5_0x4e70b1dc"] = "0x0000000000000
 data["0x9c20A4Ca2C199D7338Bb8989013D85e06062482f_0x4e70b1dc"] = "0x0000000000000000000000000000000000000000000000000000000000000080";
 data["0x00bF9E93d1EbdDBa8D7Ff5a5072084a7789bFe9B_0x4e70b1dc"] = "0x0000000000000000000000000000000000000000000000000000000000000080";
 
+
 const binary = Zoom.getZoomCall(data);
 console.log();
 console.log("call number:", Zoom.binary.length, "buffer length:", binary.length);
 console.log( "0x"+binary );
+
+// console.log(Zoom.binary);
+
+
