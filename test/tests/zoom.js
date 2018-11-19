@@ -1,5 +1,6 @@
 const OfficialWeb3                  = require('web3');
 const HttpProvider                  = require("../web3/HttpProviderCache");
+const WsProvider                    = require("../web3/WsProviderCache");
 const ZoomLibrary                   = require("../../dist/lib/index.js");
 
 const helpers                       = setup.helpers;
@@ -19,7 +20,9 @@ describe('Zoom Tests', accounts => {
     before(async () => {
 
         // custom zoom provider
-        ZoomProvider = new ZoomLibrary.HttpProvider(web3.currentProvider.host);
+        ZoomProvider = new ZoomLibrary.HttpProvider( setup.globals.network_config_http );
+
+        // ZoomProvider = new WsProvider["default"]( setup.globals.network_config_ws );
         // no result caching at this stage
         ZoomProvider.enableCache(false);
 
@@ -31,13 +34,26 @@ describe('Zoom Tests', accounts => {
             // saved requests from profiling run ( web3.multi )
             globals.multiWeb3Provider.cache
         );
-        
+
+        // eth_estimateGas fails if call is bigger than block gasLimit..
+        // so we have to guesstimate it based on previous calls
+        // 200 item call results in 3075.17 per item
+        // count number of binary calls, and only do a real estimation if count is lower than 1k
+        let trueGasEstimate = true;
+        if( ZoomLibraryInstance.binary.length > 1000 ) {
+            trueGasEstimate = false;
+        }
+
         const combinedResult = await utils.measureCallExecution( 
-            ZoomContractInstance.methods.combine( combinedBinaryCall )
+            ZoomContractInstance.methods.combine( combinedBinaryCall ), trueGasEstimate, { gas: 50000000 }
         );
 
         globals.ZoomCallTime = combinedResult.time;
         globals.ZoomTotalGasUsage = combinedResult.gas;
+
+        if( trueGasEstimate === false ) {
+            globals.ZoomTotalGasUsage = ( ZoomLibraryInstance.binary.length * 3075.17 );
+        }
 
         const ZoomTest = new ZoomLibrary.Zoom( {use_reference_calls: true } );
         const newCache = ZoomTest.resultsToCache( combinedResult.data, combinedBinaryCall );
@@ -63,14 +79,12 @@ describe('Zoom Tests', accounts => {
         })
 
         after(async () => {
-
+            /*
             utils.toLog('\n       Results: ');
-
             utils.toLog('      Total Call count :     ' + totalCalls + ' ');
             utils.toLog('      Total Data Load time : ' + totalProcessTime + ' seconds ');
             utils.toLog('');
-
-            OneItemTotalGasUsage = totalGasUsage;
+            */
         })
 
         describe("Load first item from list, then get all it's properties in tests ( validate return )", async() => {
@@ -319,22 +333,25 @@ describe('Zoom Tests', accounts => {
             })
     
             after( async() => {
+                /*
                 utils.toLog( '\n       Results:' );
-    
                 utils.toLog( '      Provider:              ZOOM ' );
                 utils.toLog( '      Total Item count :     ' + globals.TestDummyRecords + ' ' );
                 utils.toLog( '      Total Call count :     ' + totalCalls + ' ' );
                 utils.toLog( '      Total Data Load time : ' + totalProcessTime + ' seconds ' );
-
                 utils.toLog( '' );
-                
                 utils.toLog( '      Zoom call time :       ' + globals.ZoomCallTime + ' seconds ' );
                 utils.toLog( '      Zoom Gas Used :        ' + globals.ZoomTotalGasUsage + ' ' );
-                utils.toLog( '      Gas Per Item :         ' + (globals.ZoomTotalGasUsage / totalCalls) + ' ' );
-                
+                utils.toLog( '      Gas Per call :         ' + (globals.ZoomTotalGasUsage / totalCalls) + ' ' );
                 utils.toLog( '' );
-    
+                */
                 globals.callCount = totalCalls;
+
+                globals.results.zoom = {};
+                globals.results.zoom.count = 1;
+                globals.results.zoom.time = globals.ZoomCallTime;
+                globals.results.zoom.gas = globals.ZoomTotalGasUsage;
+
             })
     
             describe("Load all items from list, then get all their properties ( async / at the same time in promises )", async() => {
