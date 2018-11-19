@@ -10,6 +10,7 @@ var HttpProviderCache = /** @class */ (function () {
         this.requests = [];
         this.connected = false;
         this.usecache = false;
+        this.savetocache = false;
         options = options || {};
         this.host = host || 'http://localhost:8545';
         this.timeout = options.timeout || 0;
@@ -72,11 +73,9 @@ var HttpProviderCache = /** @class */ (function () {
                 catch (e) {
                     error = errors.InvalidResponse(request.responseText);
                 }
-
-                // save in cache anyway
-                // if (_this.usecache === true) {
+                if (_this.usecache === true || _this.savetocache === true) {
                     _this.toCache(payload, result);
-                // }
+                }
                 othis.connected = true;
                 callback(error, result);
             }
@@ -95,7 +94,7 @@ var HttpProviderCache = /** @class */ (function () {
     };
     HttpProviderCache.prototype.fromCache = function (payload) {
         var cacheKey = this.getCacheKey(payload);
-        // console.log("fromCache", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
+        console.log("fromCache", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
         return {
             jsonrpc: payload.jsonrpc,
             id: payload.id,
@@ -103,7 +102,7 @@ var HttpProviderCache = /** @class */ (function () {
         };
     };
     HttpProviderCache.prototype.fromCacheByKey = function (cacheKey, payload) {
-        // console.log("fromCacheByKey", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
+        console.log("fromCacheByKey", cacheKey, JSON.stringify(payload), JSON.stringify(this.cache[cacheKey]));
         return {
             jsonrpc: payload.jsonrpc,
             id: payload.id,
@@ -112,7 +111,7 @@ var HttpProviderCache = /** @class */ (function () {
     };
     HttpProviderCache.prototype.inCache = function (payload) {
         var cacheKey = this.getCacheKey(payload);
-        // console.log("inCache", cacheKey, JSON.stringify(payload));
+        console.log("inCache", cacheKey, JSON.stringify(payload));
         if (this.cache.hasOwnProperty(cacheKey)) {
             return true;
         }
@@ -124,31 +123,41 @@ var HttpProviderCache = /** @class */ (function () {
         }
         return false;
     };
+    /**
+     * Save result in cache
+     *
+     * @param {payload} rpc call
+     * @param {result} rpc result
+     */
     HttpProviderCache.prototype.toCache = function (payload, result) {
-        var cacheKey = this.getCacheKey(payload);
-        if(cacheKey !== false) {
-            // console.log("toCache", cacheKey, JSON.stringify(payload), JSON.stringify(result));
-            this.cache[cacheKey] = result.result;
-        }
+        this.cache[this.getCacheKey(payload)] = result.result;
     };
+    /**
+     * Get cache key for payload - rpc call
+     *
+     * @param {payload} rpc call
+     * @returns cache key string
+     */
     HttpProviderCache.prototype.getCacheKey = function (payload) {
+        var key;
         if (payload.length > 1) {
-            var key = "batch_" + crypto_js_1.MD5(JSON.stringify(payload));
-            return key;
+            key = "batch_" + crypto_js_1["default"].MD5(JSON.stringify(payload));
         }
         else {
-            if( payload.method === "eth_call" ) {
+            if (payload.method === "eth_call") {
                 /*
                 return crypto_js_1.MD5(
-                    payload.params[0].to.toString().toLowerCase() 
+                    payload.params[0].to.toString().toLowerCase()
                     + payload.params[0].data
                 ).toString();
                 */
-
-                return payload.params[0].to + "_" + payload.params[0].data;
+                key = payload.params[0].to + "_" + payload.params[0].data;
             }
-            return false;
         }
+        return key;
+    };
+    HttpProviderCache.prototype.saveToCache = function (val) {
+        this.savetocache = val;
     };
     return HttpProviderCache;
 }());

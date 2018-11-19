@@ -12,34 +12,48 @@ const ListContractInstance          = globals.ListContractInstance;
 
 describe('Web3 Multi', async() => {
 
+    let TestHttpProvider;
+    let TestWsProvider;
+
+    before( async() => {
+        TestHttpProvider = new HttpProvider["default"]( setup.globals.network_config_http );
+        TestHttpProvider.useCache(false);
+        TestHttpProvider.saveToCache(true);
+
+        TestWsProvider = new WsProvider["default"]( setup.globals.network_config_ws );
+        TestWsProvider.useCache(false);
+    })
+
+
     describe("New Web3 instance using normal HTTP Provider", async() => {
 
         let TestWeb3;
         let TestListContract;
-        let Provider;
         let totalProcessTime = 0;
         let totalGasUsage = 0;
         let totalCalls = 0;
 
         before( async() => {
-            Provider = new HttpProvider["default"]( web3.currentProvider.host );
-            Provider.useCache(false);
-            TestWeb3 = await new OfficialWeb3(Provider);
+            TestWeb3 = await new OfficialWeb3(TestHttpProvider);
             TestListContract = await new TestWeb3.eth.Contract(globals.abis.ListContract, ListContractInstance._address);
         })
 
         after( async() => {
-            utils.toLog( '\n       Results:' );
+            // save result statistics
+            let OneItemTotalGasUsage = 0;
+            if( typeof globals.OneItemTotalGasUsage !== "undefined") {
+                OneItemTotalGasUsage = globals.OneItemTotalGasUsage;
+            } else {
+                OneItemTotalGasUsage = 439155;
+            }
 
-            utils.toLog( '      Provider URL :         ' + web3.currentProvider.host + ' ' );
-            utils.toLog( '      Total Item count :     ' + globals.TestDummyRecords + ' ' );
-            utils.toLog( '      Total Call count :     ' + totalCalls + ' ' );
-            utils.toLog( '      Total Data Load time : ' + totalProcessTime + ' seconds ' );
-            utils.toLog( '      Estimated Gas Used :   ' + (globals.OneItemTotalGasUsage * globals.TestDummyRecords) + ' ' );
-            
-            utils.toLog( '' );
+            globals.results.multi = {};
+            globals.results.multi.count = totalCalls;
+            globals.results.multi.time = totalProcessTime;
+            globals.results.multi.gas = (OneItemTotalGasUsage * globals.TestDummyRecords);
 
-            globals.multiWeb3Provider = Provider;
+            // save provider so Zoom can profile these calls
+            globals.multiWeb3Provider = TestHttpProvider;
         })
 
         describe("Load all items from list, then get all their properties ( async / at the same time in promises )", async() => {
@@ -212,34 +226,33 @@ describe('Web3 Multi', async() => {
 
     });
 
-    /*
-    describe("New Web3 instance using normal WS Provider", async() => {
+    describe("New Web3 instance using normal WebSocket Provider", async() => {
 
         let TestWeb3;
         let TestListContract;
-        let Provider;
         let totalProcessTime = 0;
         let totalGasUsage = 0;
         let totalCalls = 0;
-        let ProviderUrl;
 
         before( async() => {
-            ProviderUrl = web3.currentProvider.host.replace("http", "ws")
-            Provider = new WsProvider["default"]( ProviderUrl );
-            TestWeb3 = await new OfficialWeb3(Provider);
+            TestWeb3 = await new OfficialWeb3(TestWsProvider);
             TestListContract = await new TestWeb3.eth.Contract(globals.abis.ListContract, ListContractInstance._address);
         })
 
         after( async() => {
-            utils.toLog( '\n       Results:' );
+            // save result statistics
+            let OneItemTotalGasUsage = 0;
+            if( typeof globals.OneItemTotalGasUsage !== "undefined") {
+                OneItemTotalGasUsage = globals.OneItemTotalGasUsage;
+            } else {
+                OneItemTotalGasUsage = 439155;
+            }
 
-            utils.toLog( '      Provider URL :         ' + ProviderUrl + ' ' );
-            utils.toLog( '      Total Item count :     ' + globals.TestDummyRecords + ' ' );
-            utils.toLog( '      Total Call count :     ' + totalCalls + ' ' );
-            utils.toLog( '      Total Data Load time : ' + totalProcessTime + ' seconds ' );
-            utils.toLog( '      Estimated Gas Used :   ' + (globals.OneItemTotalGasUsage * globals.TestDummyRecords) + ' ' );
+            globals.results.multiws = {};
+            globals.results.multiws.count = totalCalls;
+            globals.results.multiws.time = totalProcessTime;
+            globals.results.multiws.gas = (OneItemTotalGasUsage * globals.TestDummyRecords);
 
-            utils.toLog( '' );
         })
 
         describe("Load all items from list, then get all their properties ( async / at the same time in promises )", async() => {
@@ -409,6 +422,7 @@ describe('Web3 Multi', async() => {
                 });
             });
         });
+
     });
-    */
+
 });

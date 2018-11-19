@@ -13,6 +13,7 @@ class HttpProviderCache {
     private headers: any;
     private connected: boolean = false;
     private usecache: boolean = false;
+    private savetocache: boolean = false;
 
     constructor(host?: any, options?: any) {
         options = options || {};
@@ -87,7 +88,7 @@ class HttpProviderCache {
                     error = errors.InvalidResponse(request.responseText);
                 }
 
-                if (this.usecache === true) {
+                if (this.usecache === true || this.savetocache === true) {
                     this.toCache(payload, result);
                 }
                 othis.connected = true;
@@ -144,21 +145,45 @@ class HttpProviderCache {
         return false;
     }
 
-    public toCache(payload: any, result: any) {
-        const cacheKey = this.getCacheKey(payload);
-        console.log("toCache", cacheKey, JSON.stringify(payload), JSON.stringify(result) );
-        this.cache[cacheKey] = result.result;
+    /**
+     * Save result in cache
+     *
+     * @param {payload} rpc call
+     * @param {result} rpc result
+     */
+    public toCache(payload: any, result: any): void {
+        this.cache[this.getCacheKey(payload)] = result.result;
     }
 
+    /**
+     * Get cache key for payload - rpc call
+     *
+     * @param {payload} rpc call
+     * @returns cache key string
+     */
     public getCacheKey(payload: any): string {
+        let key;
         if (payload.length > 1) {
-            const key = "batch_" + CryptoJS.MD5(JSON.stringify(payload));
-            return key;
-        } else {
-            return CryptoJS.MD5(payload.params[0].to.toString().toLowerCase() + payload.params[0].data).toString();
+            key = "batch_" + CryptoJS.MD5(JSON.stringify(payload));
         }
+        else {
+            if( payload.method === "eth_call" ) {
+                /*
+                return crypto_js_1.MD5(
+                    payload.params[0].to.toString().toLowerCase() 
+                    + payload.params[0].data
+                ).toString();
+                */
+
+               key = payload.params[0].to + "_" + payload.params[0].data;
+            }
+        }
+        return key;
     }
 
+    public saveToCache(val: boolean) {
+        this.savetocache = val;
+    }
 }
 
 export default HttpProviderCache;

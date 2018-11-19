@@ -174,9 +174,9 @@ module.exports = {
             tx.receipt.cumulativeGasUsed
         );
     },
-    async measureCallExecution(Call, gas = true) {
+    async measureCallExecution(Call, gas = true, options = {} ) {
         const startTime = process.hrtime();
-        const item = await Call.call();
+        const item = await Call.call( options );
         const endTime = process.hrtime(startTime);
         const actualTime = endTime[0] + endTime[1] / 1000000000;
         let gasUsage = 0;

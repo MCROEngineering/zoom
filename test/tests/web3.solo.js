@@ -12,7 +12,7 @@ const ListContractInstance          = globals.ListContractInstance;
 
 describe('Web3 Solo', async() => {
 
-    describe("New Web3 instance using normal HTTP Provider", async() => {
+    describe("New Web3 instance using normal WebSocket Provider", async() => {
 
         let TestWeb3;
         let TestListContract;
@@ -22,21 +22,20 @@ describe('Web3 Solo', async() => {
         let totalCalls = 0;
 
         before( async() => {
-            Provider = new HttpProvider["default"]( web3.currentProvider.host );
+            // Provider = new HttpProvider["default"]( web3.currentProvider.host );
+            Provider = new WsProvider["default"]( setup.globals.network_config_ws );
             Provider.useCache(false);
             TestWeb3 = await new OfficialWeb3(Provider);
             TestListContract = await new TestWeb3.eth.Contract(globals.abis.ListContract, ListContractInstance._address);
         });
 
         after( async() => {
-            utils.toLog( '\n       Results: ' );
-            
-            utils.toLog( '      Total Call count :     ' + totalCalls + ' ' );
-            utils.toLog( '      Total HTTP wait time : ' + totalProcessTime + ' seconds ' );
-            utils.toLog( '      Total Gas Used :       ' + totalGasUsage + ' ' );
-            utils.toLog( '' );
-
+            // save result statistics
             globals.OneItemTotalGasUsage = totalGasUsage;
+            globals.results.solo = {};
+            globals.results.solo.count = totalCalls;
+            globals.results.solo.time = totalProcessTime;
+            globals.results.solo.gas = totalGasUsage;
         });
 
         describe("Load first item from list, then get all it's properties in tests ( determine gas )", async() => {

@@ -85,7 +85,7 @@ module.exports = async function thisStep(setup) {
 
     utils.toLog(
         ' ----------------------------------------------------------------\n'+
-        '  Step 1 - Create Test Data \n'+
+        '  Step 1 - Instantiate Zoom and create TestData Contracts \n'+
         '  ----------------------------------------------------------------'
     );
     utils.toLog( ' ListContract at: ' + ListContract_address + '\n' );
@@ -108,13 +108,6 @@ module.exports = async function thisStep(setup) {
     // add linked records ( for type 1 )
     const itemNum = await ListContractInstance.methods.itemNum().call();
     utils.toLog( ' ListContract item count: ' + utils.colors.orange + itemNum + utils.colors.none + '.' );
-    utils.toLog( '' );
-    utils.toLog(
-        ' ----------------------------------------------------------------\n'+
-        '  Step 2 - Instantiate Zoom \n'+
-        '  ----------------------------------------------------------------'
-    );
-    utils.toLog( ' Zoom at:         ' + ZoomContract_address  );
     utils.toLog( '' );
     
 }
