@@ -44,6 +44,17 @@ module.exports = async function thisStep(setup) {
         utils.toLog( '' );
     }
 
+    if(typeof globals.results.multiws !== "undefined") {
+        hasMultiResults = true;
+
+        utils.toLog( '\n  Web3 Multi WebSocket Asynchronous request results: ' );
+            
+        utils.toLog( '    Total Call count :        ' + globals.results.multiws.count + ' ' );
+        utils.toLog( '    Total Process wait time : ' + globals.results.multiws.time + ' seconds ' );
+        utils.toLog( '    Total Gas Used :          ' + globals.results.multiws.gas + ' ' );
+        utils.toLog( '' );
+    }
+
     if(typeof globals.results.zoom !== "undefined") {
         hasZoomResults = true;
 

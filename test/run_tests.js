@@ -1,16 +1,16 @@
 async function runTests() {
 
-    const useReferenceCalls = true;
+    const useReferenceCalls = false;
     const TestDummyRecords  = 100;
     const rpcHttpHost           = "http://127.0.0.1:8545/";
     const rpcWsHost             = "ws://127.0.0.1:8545/";
 
-    const testnetHttpHost       = "https://rinkeby.infura.io/";
-    const testnetWsHost         = "wss://rinkeby.infura.io/ws";
+    // const testnetHttpHost       = "https://rinkeby.infura.io/";
+    // const testnetWsHost         = "wss://rinkeby.infura.io/ws";
 
     // nginx proxy for test rinkeby server so we have 1 connection to geth
-    // const testnetHttpHost       = "http://nowlive.ro/rinkeby";
-    // const testnetWsHost         = "ws://nowlive.ro/rinkebyws";
+    const testnetHttpHost       = "http://nowlive.ro/rinkeby";
+    const testnetWsHost         = "ws://nowlive.ro/rinkebyws";
 
 
 
