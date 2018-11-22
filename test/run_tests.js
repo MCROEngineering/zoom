@@ -1,18 +1,9 @@
 async function runTests() {
 
-    const useReferenceCalls = false;
-    const TestDummyRecords  = 100;
-    const rpcHttpHost           = "http://127.0.0.1:8545/";
-    const rpcWsHost             = "ws://127.0.0.1:8545/";
+    const configuration             = require("./../configuration.json");
 
-    // const testnetHttpHost       = "https://rinkeby.infura.io/";
-    // const testnetWsHost         = "wss://rinkeby.infura.io/ws";
-
-    // nginx proxy for test rinkeby server so we have 1 connection to geth
-    const testnetHttpHost       = "http://nowlive.ro/rinkeby";
-    const testnetWsHost         = "ws://nowlive.ro/rinkebyws";
-
-
+    const useReferenceCalls = configuration.zoom.useReferenceCalls;
+    const TestDummyRecords  = configuration.TestDummyRecords;
 
     const tests = [
         'web3.solo',
@@ -30,16 +21,32 @@ async function runTests() {
     BigNumber.config({ DECIMAL_PLACES: 0, ROUNDING_MODE: 1 }); // ROUND_DOWN = 1
 
     const setup = {
-        network: process.argv[3],
+        network: process.argv[2],
         globals: {},
     };
     
-    if(setup.network === "local") {
-        setup.globals.network_config_http = rpcHttpHost;
-        setup.globals.network_config_ws = rpcWsHost;
+    if( typeof configuration.networks[ setup.network ] !== "undefined" ) {
+
+        setup.globals.network_config_http = configuration.networks[ setup.network ].http;
+        setup.globals.network_config_ws = configuration.networks[ setup.network ].ws;
+
+        utils.toLog(
+            ' ----------------------------------------------------------------\n'+
+            '  Configuration: \n'+
+            '  ----------------------------------------------------------------'
+        );
+        utils.toLog( ' Network:                ' + setup.network  );
+        utils.toLog( ' HTTP Address:           ' + setup.globals.network_config_http  );
+        utils.toLog( ' WebSocket Address:      ' + setup.globals.network_config_ws  );
+        utils.toLog( '' );
+        utils.toLog( ' Zoom Configuration: ' );
+        utils.toLog( '   Build and use Referenced Address Calls: ' + useReferenceCalls );
+        utils.toLog( '' );
+
     } else {
-        setup.globals.network_config_http = testnetHttpHost;
-        setup.globals.network_config_ws = testnetWsHost;
+        
+        utils.toLog( ' Network : ' + utils.colors.red +  setup.network + utils.colors.white + ' does not have a specified configuration. Please add it to configuration.json.'  );
+        process.exit();
     }
 
     const TestWsProvider = new WsProvider["default"]( setup.globals.network_config_ws );
@@ -62,6 +69,7 @@ async function runTests() {
     setup.globals.TestDummyRecords = TestDummyRecords; 
     setup.globals.use_reference_calls = useReferenceCalls;
     setup.globals.results = {};
+    setup.globals.configuration = configuration;
 
 
     if(setup.network === "local") {

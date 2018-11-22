@@ -1,0 +1,20 @@
+{
+    "TestDummyRecords" : 10,
+    "zoom": {
+        "useReferenceCalls": false
+    },
+    "networks": {
+        "local": {
+            "http": "http://127.0.0.1:8545/",
+            "ws": "ws://127.0.0.1:8545/"
+        },
+        "infura": {
+            "http": "https://rinkeby.infura.io/",
+            "ws": "wss://rinkeby.infura.io/ws"
+        },
+        "nowlive": {
+            "http": "http://nowlive.ro/rinkeby",
+            "ws": "ws://nowlive.ro/rinkebyws"
+        }
+    }
+}

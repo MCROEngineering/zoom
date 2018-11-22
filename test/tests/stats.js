@@ -14,10 +14,6 @@ module.exports = async function thisStep(setup) {
     const totalCalls = 0;
     const totalProcessTime = 0;
 
-    // globals.callCount
-    // globals.ZoomCallTime = result.time;
-    // globals.ZoomTotalGasUsage = result.gas;
-
     let hasSoloResults = false;
     let hasMultiResults = false;
     let hasZoomResults = false;
@@ -105,5 +101,11 @@ module.exports = async function thisStep(setup) {
     utils.toLog( '' );
     utils.toLog( '  Tests performed on ' + utils.colors.green + ProviderHost + utils.colors.none + ' ');
     utils.toLog( '' );
+
+    
+    const TestResults = {
+        host: setup.network,
+        // run id
+    }
 
 }
