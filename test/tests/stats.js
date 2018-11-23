@@ -14,10 +14,6 @@ module.exports = async function thisStep(setup) {
     const totalCalls = 0;
     const totalProcessTime = 0;
 
-    // globals.callCount
-    // globals.ZoomCallTime = result.time;
-    // globals.ZoomTotalGasUsage = result.gas;
-
     let hasSoloResults = false;
     let hasMultiResults = false;
     let hasZoomResults = false;
@@ -41,6 +37,17 @@ module.exports = async function thisStep(setup) {
         utils.toLog( '    Total Call count :        ' + globals.results.multi.count + ' ' );
         utils.toLog( '    Total Process wait time : ' + globals.results.multi.time + ' seconds ' );
         utils.toLog( '    Total Gas Used :          ' + globals.results.multi.gas + ' ' );
+        utils.toLog( '' );
+    }
+
+    if(typeof globals.results.multiws !== "undefined") {
+        hasMultiResults = true;
+
+        utils.toLog( '\n  Web3 Multi WebSocket Asynchronous request results: ' );
+            
+        utils.toLog( '    Total Call count :        ' + globals.results.multiws.count + ' ' );
+        utils.toLog( '    Total Process wait time : ' + globals.results.multiws.time + ' seconds ' );
+        utils.toLog( '    Total Gas Used :          ' + globals.results.multiws.gas + ' ' );
         utils.toLog( '' );
     }
 
@@ -94,5 +101,11 @@ module.exports = async function thisStep(setup) {
     utils.toLog( '' );
     utils.toLog( '  Tests performed on ' + utils.colors.green + ProviderHost + utils.colors.none + ' ');
     utils.toLog( '' );
+
+    
+    const TestResults = {
+        host: setup.network,
+        // run id
+    }
 
 }
