@@ -1,5 +1,5 @@
 {
-    "TestDummyRecords" : 10,
+    "TestDummyRecords" : 100,
     "zoom": {
         "useReferenceCalls": false
     },
@@ -9,12 +9,16 @@
             "ws": "ws://127.0.0.1:8545/"
         },
         "infura": {
-            "http": "https://rinkeby.infura.io/",
-            "ws": "wss://rinkeby.infura.io/ws"
+            "http": "https://ropsten.infura.io/",
+            "ws": "wss://ropsten.infura.io/ws"
         },
-        "nowlive": {
-            "http": "http://nowlive.ro/rinkeby",
-            "ws": "ws://nowlive.ro/rinkebyws"
+        "nowlive.geth": {
+            "http": "http://nowlive.ro/geth.ropsten",
+            "ws": "ws://nowlive.ro/geth.ropsten.ws"
+        },
+        "nowlive.parity": {
+            "http": "http://nowlive.ro/parity.ropsten",
+            "ws": "ws://nowlive.ro/parity.ropsten.ws"
         }
     }
 }

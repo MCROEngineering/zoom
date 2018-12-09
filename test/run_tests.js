@@ -82,8 +82,13 @@ async function runTests() {
         }
     } else {
 
-        const ListContract_address   = "0x60b1151b564b3d2321ce641914001ec97d009d47"
-        const ZoomContract_address   = "0xe07a33e2975b7012eb9bf002aa12aba98d7069dc";
+        // rinkeby
+        // const ListContract_address   = "0x60b1151b564b3d2321ce641914001ec97d009d47"
+        // const ZoomContract_address   = "0xe07a33e2975b7012eb9bf002aa12aba98d7069dc";
+
+        // ropsten
+        const ListContract_address   = "0x1d5cb16376911d3832efb4130670c4a6a47fb82f"
+        const ZoomContract_address   = "0x06015a207fb22eb6d81585e1694c8fff405ee4a4";
 
         utils.toLog(
             ' ----------------------------------------------------------------\n'+
