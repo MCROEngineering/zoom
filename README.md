@@ -260,9 +260,22 @@ Smart Contract property requests: **2000**
 
 Wallets, Drizzle, Metamask could start loading every single property like account balances / smart contract properties in ONE call instead of doing multiple calls.
 
-## 8. The Future
+## 8. Running tests
 
-### 8.1. Custom View Builder
+Edit configuration.json and set number of TestDummyRecords: default **100**
+
+- `npm run test:local`
+
+- `npm run test:infura`
+
+- `npm run test:nowlive.geth`
+
+- `npm run test:nowlive.parity`
+
+
+## 9. The Future
+
+### 9.1. Custom View Builder
 
 Think about a "product page" or a "crypto kitty page" that loads a specific set of properties / variables each time it loads a different id.
 
