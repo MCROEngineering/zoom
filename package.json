@@ -12,7 +12,8 @@
     "test:reuse": "tsc -p . && scripts/run_tests.sh local use-existing",
     "test:local:reuse": "npm run test:reuse",
     "test:infura": "tsc -p . && scripts/run_tests.sh infura",
-    "test:nowlive": "tsc -p . && scripts/run_tests.sh nowlive"
+    "test:nowlive.geth": "tsc -p . && scripts/run_tests.sh nowlive.geth",
+    "test:nowlive.parity": "tsc -p . && scripts/run_tests.sh nowlive.parity"
   },
   "files": [
     "index.js",
