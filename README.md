@@ -140,7 +140,8 @@ Process diagram:
 ```javascript
 const ZoomLibrary = require("zoom.js");
 const ZoomABI = require("./build/contracts/Zoom.json");
-const ZoomQueryBinary = require("./ZoomQueryBinary.json");
+const ZoomQueryFile = require("./ZoomQueryBinary.json");
+const ZoomQueryBinary = Buffer.from( ZoomQueryFile.data, "hex" );
 
 // Instantiate the Zoom Library with default config
 const ZoomLibraryInstance = new ZoomLibrary.Zoom();
@@ -197,13 +198,7 @@ Process diagram:
 
 ## 5. Benchmarks
 
-### 5.1. Details
-
-Ran on [Test Runner Machine](###-5.5.2.-Test-Runner) using **NodeJs - v8.7.0**.
-
-Smart Contract property requests: **2000**
-
-### 5.2. Zoom Results
+### 5.1. Results
 
 |                        |    Ganache   |    Infura    |    Parity    |     Geth     |
 |:----------------------:|:------------:|:------------:|:------------:|:------------:|
@@ -211,15 +206,17 @@ Smart Contract property requests: **2000**
 |    Asynchronous HTTP   |   2.698928   |   2.381501   |   15.485504  |   23.867573  |
 | Asynchronous WebSocket |   2.507113   |   22.689466  |   1.740879   |   1.908162   |
 
-### 5.3. Results
+### 5.2. Details
+
+Ran on [Test Runner Machine](###-5.3.2.-Test-Runner) using **NodeJs - v8.7.0**.
+
+Smart Contract property requests: **2000**
 
 - Ethereum Node Software Versions
   - Ganache-cli/6.1.8
   - Infura - unknown
   - Parity-Ethereum/v2.2.2-beta-78ceec6-20181129/x86_64-linux-gnu/rustc1.30.1
   - Geth/v1.8.19-stable-dae82f09/linux-amd64/go1.10.4
-
-### 5.4. Results - Time
 
 |         Call Type / Node        |  Ganache |  Infura  |  Parity  |   Geth   |
 |:-------------------------------:|:--------:|:--------:|:--------:|:--------:|
@@ -233,9 +230,9 @@ Smart Contract property requests: **2000**
   - Ganache tests are run on the same machine using newly deployed data
   - Parity and Geth tests are run in the local network on Ropsten
 
-### 5.5. Test Machines
+### 5.3. Test Machines
 
-#### 5.5.1. Ethereum Nodes
+#### 5.3.1. Ethereum Nodes
 
 - Type: VirtualBox Guest Machine
 - OS: Ubuntu-16.04.4-server-amd64
@@ -244,7 +241,7 @@ Smart Contract property requests: **2000**
 - RAM: 4 GB RAM
 - Storage: 60 GB SSD
 
-#### 5.5.2. Test Runner
+#### 5.3.2. Test Runner
 
 - Type: Bare metal
 - OS: MacOS Sierra - 10.12.6 (16G29)
@@ -255,7 +252,7 @@ Smart Contract property requests: **2000**
 
 ## 6. Technical Details
 
-### 6.1. Request Buffer Specifications
+### 6.1. ZoomQuery Buffer Specifications
 
 ![Zoom Request Buffer](docs/Request_Buffer_Vertical.png)
 
