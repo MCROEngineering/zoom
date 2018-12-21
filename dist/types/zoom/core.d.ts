@@ -23,7 +23,6 @@ export default class Zoom {
     options: ZoomOptions;
     cache: {};
     calls: {};
-    refcalls: {};
     binary: any;
     private addressInAnyResultCache;
     /**
@@ -35,9 +34,9 @@ export default class Zoom {
      * Assign cache and build the binary call
      *
      * @param {cache} - ZoomOptions
-     * @returns hex string
+     * @returns Buffer containing resulting call
      */
-    getZoomCall(cache: {}): Buffer;
+    getZoomCall(cache: {}): any;
     /**
      * Concatenate all binary calls we have into one large string
      * @param data - the string containing all the calls we want to make
@@ -86,6 +85,8 @@ export default class Zoom {
      *
      * @returns new cache object
      */
-    resultsToCache(binaryString: string): {};
+    resultsToCache(callResult: any, combinedBinaryCall: Buffer): {};
+    toBuffer(string: any): Buffer;
+    private readOffsets;
 }
 export {};

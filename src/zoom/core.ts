@@ -362,6 +362,10 @@ export default class Zoom {
         return newData;
     }
 
+    public toBuffer(string) {
+        return Buffer.from(string, "hex");
+    }
+
     private readOffsets(binaryString: string): any {
 
         // strip out 0x

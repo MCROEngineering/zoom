@@ -255,6 +255,9 @@ class Zoom {
         }
         return newData;
     }
+    toBuffer(string) {
+        return Buffer.from(string, "hex");
+    }
     readOffsets(binaryString) {
         // strip out 0x
         const cleanBinary = this.removeZeroX(binaryString);

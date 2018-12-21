@@ -92,7 +92,7 @@ const ZoomProvider = new ZoomLibrary.HttpProvider( "https://ropsten.infura.io/" 
 ZoomProvider.enableCache(true);
 
 // Pass our provider to a new or existing Web3 object.
-const Web3 = new Web3( ZoomProvider );
+const web3 = new Web3( ZoomProvider );
 
 /*
 
@@ -271,7 +271,6 @@ Edit configuration.json and set number of TestDummyRecords: default **100**
 - `npm run test:nowlive.geth`
 
 - `npm run test:nowlive.parity`
-
 
 ## 9. The Future
 
