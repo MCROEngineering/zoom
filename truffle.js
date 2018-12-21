@@ -2,7 +2,7 @@ let HDWalletProvider = require('truffle-hdwallet-provider');
 
 const mnemonic = 'lunch release trick fluid omit about fatigue suffer dentist minute cube want';
 // const addr = '0x4b70518d879a4e2da4ad9cf0189b32d8dc6b7a9b';
-const developmentProvider = new HDWalletProvider(mnemonic, "http://127.0.0.1:8545/");
+// const developmentProvider = new HDWalletProvider(mnemonic, "http://127.0.0.1:8545/");
 
 module.exports = {
     synchronization_timeout: 3600000,

@@ -18,4 +18,6 @@ const ByteArray_1 = __importDefault(require("./utils/ByteArray"));
 exports.ByteArray = ByteArray_1.default;
 const HttpProvider_1 = __importDefault(require("./utils/HttpProvider"));
 exports.HttpProvider = HttpProvider_1.default;
+const WsProvider_1 = __importDefault(require("./utils/WsProvider"));
+exports.WsProvider = WsProvider_1.default;
 //# sourceMappingURL=index.js.map

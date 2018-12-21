@@ -9,8 +9,8 @@
             "ws": "ws://127.0.0.1:8545/"
         },
         "infura": {
-            "http": "https://ropsten.infura.io/",
-            "ws": "wss://ropsten.infura.io/ws"
+            "http": "https://ropsten.infura.io/v3/cf4ef5272c3e459390943b6fc01f8ab8",
+            "ws": "wss://ropsten.infura.io/ws/v3/cf4ef5272c3e459390943b6fc01f8ab8"
         },
         "nowlive.geth": {
             "http": "http://nowlive.ro/geth.ropsten",
