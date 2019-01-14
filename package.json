@@ -21,7 +21,8 @@
     "build/",
     "contracts/",
     "scripts/",
-    "test/"
+    "test/",
+    "dist/"
   ],
   "author": "micky@mcro.tech",
   "license": "MIT",
