@@ -22,7 +22,7 @@
     "contracts/",
     "scripts/",
     "test/",
-    "dist/"
+    "dist/*"
   ],
   "author": "micky@mcro.tech",
   "license": "MIT",
