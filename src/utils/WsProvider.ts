@@ -5,15 +5,17 @@ let Ws: any = null;
 let parseURL: any = null;
 let myBtoa: any = null;
 
-// @ts-ignore: WebSocket
-if (typeof window !== 'undefined' && typeof window.WebSocket !== 'undefined') {
     // @ts-ignore: WebSocket
-    Ws = window.WebSocket;
-    myBtoa = btoa;
-    parseURL = (iurl: any) => {
-        return new URL(iurl);
-    };
-} else {
+    /*
+    if (typeof window !== 'undefined' && typeof window.WebSocket !== 'undefined') {
+        // @ts-ignore: WebSocket
+        Ws = window.WebSocket;
+        myBtoa = btoa;
+        parseURL = (iurl: any) => {
+            return new URL(iurl);
+        };
+    } else {
+    */
     Ws = require('websocket').w3cwebsocket;
     myBtoa = (str: any) => {
         return new Buffer(str).toString('base64');
@@ -29,7 +31,8 @@ if (typeof window !== 'undefined' && typeof window.WebSocket !== 'undefined') {
         // Web3 supports Node.js 5, so fall back to the legacy URL API if necessary
         parseURL = require('url').parse;
     }
-}
+
+    // }
 // Default connection ws://localhost:8546
 
 export default class WsProvider {
