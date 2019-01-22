@@ -13,13 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ByteArray_1 = __importDefault(require("../utils/ByteArray"));
-class Zoom {
+var ByteArray_1 = __importDefault(require("../utils/ByteArray"));
+var Zoom = /** @class */ (function () {
     /**
      *
      * @param {options} - ZoomOptions
      */
-    constructor(options) {
+    function Zoom(options) {
         this.version = 1;
         this.options = {
             clone_cache: false,
@@ -39,7 +39,7 @@ class Zoom {
      * @param {cache} - ZoomOptions
      * @returns Buffer containing resulting call
      */
-    getZoomCall(cache) {
+    Zoom.prototype.getZoomCall = function (cache) {
         if (this.options.clone_cache === true) {
             this.cache = Object.assign({}, cache);
         }
@@ -49,14 +49,14 @@ class Zoom {
         this.groupCalls();
         this.generateBinaryCalls();
         return Buffer.from(this.addZoomHeader(this.getBinaryCall()), "hex");
-    }
+    };
     /**
      * Concatenate all binary calls we have into one large string
      * @param data - the string containing all the calls we want to make
      * @returns string
      */
-    addZoomHeader(data) {
-        const bytes = new ByteArray_1.default(Buffer.alloc(2 + 2 + 2));
+    Zoom.prototype.addZoomHeader = function (data) {
+        var bytes = new ByteArray_1.default(Buffer.alloc(2 + 2 + 2));
         // add version
         bytes.writeUnsignedShort(this.version);
         // add call num
@@ -65,12 +65,12 @@ class Zoom {
         bytes.writeUnsignedShort(0);
         // add 0x start and return
         return bytes.toString("hex") + data;
-    }
+    };
     /**
      * Concatenate all binary calls we have into one large string
      * @returns string
      */
-    getBinaryCall() {
+    Zoom.prototype.getBinaryCall = function () {
         // There is a case when a type 2 call might reference a later result
         // 
         // This can happen if the user first calls a contract with a hardcoded
@@ -81,33 +81,34 @@ class Zoom {
         this.binary.sort(function (objA, objB) {
             return (objA < objB) ? -1 : (objA > objB) ? 1 : 0;
         });
-        let data = "";
-        for (let i = 0; i < this.binary.length; i++) {
+        var data = "";
+        for (var i = 0; i < this.binary.length; i++) {
             data += this.binary[i].toString("hex");
         }
         return data;
-    }
+    };
     /**
      * Iterate through our calls and create binaries
      */
-    generateBinaryCalls() {
+    Zoom.prototype.generateBinaryCalls = function () {
+        var _this = this;
         // clean our address cache
         this.addressInAnyResultCache = {};
-        Object.keys(this.calls).forEach((callToAddress) => {
+        Object.keys(this.calls).forEach(function (callToAddress) {
             // for each grouped value
-            this.calls[callToAddress].forEach((callDataString) => {
+            _this.calls[callToAddress].forEach(function (callDataString) {
                 // convert our hex string to a buffer so we can actually use it
-                const callData = Buffer.from(this.removeZeroX(callDataString), "hex");
-                const packet = {
+                var callData = Buffer.from(_this.removeZeroX(callDataString), "hex");
+                var packet = {
                     type: 1,
                     dataLength: callData.length,
                     resultId: 0,
                     offset: 0,
-                    toAddress: Buffer.from(this.removeZeroX(callToAddress), "hex"),
+                    toAddress: Buffer.from(_this.removeZeroX(callToAddress), "hex"),
                 };
                 // if active then try to build type 2 calls
-                if (this.options.use_reference_calls === true) {
-                    const { found, callNum, bytePosition } = this.findToAddressInAnyResult(callToAddress);
+                if (_this.options.use_reference_calls === true) {
+                    var _a = _this.findToAddressInAnyResult(callToAddress), found = _a.found, callNum = _a.callNum, bytePosition = _a.bytePosition;
                     if (found === true) {
                         packet.type = 2;
                         packet.toAddress = Buffer.from("");
@@ -115,10 +116,10 @@ class Zoom {
                         packet.offset = bytePosition.toString();
                     }
                 }
-                this.binary.push(this.createBinaryCallByteArray(packet, callData));
+                _this.binary.push(_this.createBinaryCallByteArray(packet, callData));
             });
         });
-    }
+    };
     /**
      * create binary call byte array
      *
@@ -126,8 +127,8 @@ class Zoom {
      * @param callData - Buffer containing method sha and hex encoded parameter values
      * @returns {ByteArray}
      */
-    createBinaryCallByteArray(packet, callData) {
-        const bytes = new ByteArray_1.default(Buffer.alloc(8));
+    Zoom.prototype.createBinaryCallByteArray = function (packet, callData) {
+        var bytes = new ByteArray_1.default(Buffer.alloc(8));
         // 1 byte - uint8 call type ( 1 normal / 2 - to address is result of a previous call )
         bytes.writeByte(packet.type);
         // 2 bytes - uint16 call_data length
@@ -143,29 +144,30 @@ class Zoom {
         // 4 bytes method sha + dynamic for the rest 0 to any
         bytes.copyBytes(callData, 0);
         return bytes;
-    }
+    };
     /**
      * Remove 0x from string then return it
      * @param string
      * @returns string
      */
-    removeZeroX(string) {
+    Zoom.prototype.removeZeroX = function (string) {
         return string.replace("0x", "");
-    }
+    };
     /**
      * Group calls by "to" address
      */
-    groupCalls() {
-        Object.keys(this.cache).forEach((key) => {
-            const parts = key.split("_");
-            const toAddress = parts[0];
-            const toCall = parts[1];
-            if (!this.calls.hasOwnProperty(toAddress)) {
-                this.calls[toAddress] = [];
+    Zoom.prototype.groupCalls = function () {
+        var _this = this;
+        Object.keys(this.cache).forEach(function (key) {
+            var parts = key.split("_");
+            var toAddress = parts[0];
+            var toCall = parts[1];
+            if (!_this.calls.hasOwnProperty(toAddress)) {
+                _this.calls[toAddress] = [];
             }
-            this.calls[toAddress].push(toCall);
+            _this.calls[toAddress].push(toCall);
         });
-    }
+    };
     /**
      * Search current calls for the "to address" and if found return index and byte offset
      *
@@ -173,28 +175,29 @@ class Zoom {
      *
      * @returns { addressInResult }
      */
-    findToAddressInAnyResult(to) {
+    Zoom.prototype.findToAddressInAnyResult = function (to) {
+        var _this = this;
         if (typeof this.addressInAnyResultCache[to] === "undefined") {
-            const cleanTo = this.removeZeroX(to);
-            const Result = {
+            var cleanTo_1 = this.removeZeroX(to);
+            var Result_1 = {
                 callNum: 0,
                 bytePosition: 0,
                 found: false,
             };
-            Object.keys(this.cache).some((key, index) => {
-                const position = this.cache[key].indexOf(cleanTo);
+            Object.keys(this.cache).some(function (key, index) {
+                var position = _this.cache[key].indexOf(cleanTo_1);
                 if (position > -1) {
-                    Result.callNum = index;
-                    Result.bytePosition = (position - 2) / 2; // adjust for 0x in result
-                    Result.found = true;
+                    Result_1.callNum = index;
+                    Result_1.bytePosition = (position - 2) / 2; // adjust for 0x in result
+                    Result_1.found = true;
                     return true;
                 }
                 return false;
             });
-            this.addressInAnyResultCache[to] = Result;
+            this.addressInAnyResultCache[to] = Result_1;
         }
         return this.addressInAnyResultCache[to];
-    }
+    };
     /**
      * Converts the binary returned by the Zoom Smart contract back into a cache object
      *
@@ -202,48 +205,48 @@ class Zoom {
      *
      * @returns new cache object
      */
-    resultsToCache(callResult, combinedBinaryCall) {
-        const newData = {};
-        const resultString = this.removeZeroX(callResult[0]);
-        const resultOffsets = this.readOffsets(callResult[1]);
+    Zoom.prototype.resultsToCache = function (callResult, combinedBinaryCall) {
+        var newData = {};
+        var resultString = this.removeZeroX(callResult[0]);
+        var resultOffsets = this.readOffsets(callResult[1]);
         // push resultString length as last offset, so we can the last result
         resultOffsets.push(resultString.length / 2);
-        const bytes = new ByteArray_1.default(combinedBinaryCall);
+        var bytes = new ByteArray_1.default(combinedBinaryCall);
         // Read Zoom Header
         // bypass version ( 2 bytes )
         bytes.advanceReadPositionBy(2);
         // read number of calls ( 2 bytes )
-        const callLength = bytes.readUnsignedShort();
+        var callLength = bytes.readUnsignedShort();
         // bypass unused space ( 2 bytes ) so bytes.readPosition is now at call data space.
         bytes.advanceReadPositionBy(2);
         // parse and index results
-        const Results = [];
-        for (let i = 0; i < callLength; i++) {
+        var Results = [];
+        for (var i = 0; i < callLength; i++) {
             Results.push(resultString.substring(resultOffsets[i] * 2, resultOffsets[i + 1] * 2));
         }
-        for (let i = 0; i < callLength; i++) {
+        for (var i = 0; i < callLength; i++) {
             // 1 byte - uint8 call type ( 1 normal / 2 - to address is result of a previous call )
-            const type = bytes.readByte();
+            var type = bytes.readByte();
             // 2 bytes - uint16 call_data length
-            const callDataLength = bytes.readUnsignedShort();
-            let toAddress;
+            var callDataLength = bytes.readUnsignedShort();
+            var toAddress = void 0;
             if (type === 1) {
                 // bypass 5 bytes used in type 2 for result id and offset and 1 byte for unused space
                 bytes.advanceReadPositionBy(5);
                 // normal call that contains toAddress and callData
-                const AddressByteArray = new ByteArray_1.default(20);
+                var AddressByteArray = new ByteArray_1.default(20);
                 bytes.readBytes(AddressByteArray, 0, 20);
                 toAddress = AddressByteArray.toString("hex");
             }
             else if (type === 2) {
                 // referenced call that contains callData, toAddress is in result
-                const resultId = bytes.readUnsignedShort();
-                const resultOffset = bytes.readUnsignedShort();
+                var resultId = bytes.readUnsignedShort();
+                var resultOffset = bytes.readUnsignedShort();
                 toAddress = Results[resultId].substring(resultOffset * 2, (resultOffset + 20) * 2);
                 // bypass unused space ( 1 bytes ) so bytes.readPosition is now at callData space.
                 bytes.advanceReadPositionBy(1);
             }
-            const callData = new ByteArray_1.default(callDataLength);
+            var callData = new ByteArray_1.default(callDataLength);
             bytes.readBytes(callData, 0, callDataLength);
             // combine our call and data and attach result
             newData["0x" + toAddress + "_0x" + callData.toString("hex")] = "0x" + Results[i];
@@ -254,19 +257,19 @@ class Zoom {
             throw new Error("Zoom: Result size error, something went wrong.");
         }
         return newData;
-    }
-    toBuffer(string) {
+    };
+    Zoom.prototype.toBuffer = function (string) {
         return Buffer.from(string, "hex");
-    }
-    readOffsets(binaryString) {
+    };
+    Zoom.prototype.readOffsets = function (binaryString) {
         // strip out 0x
-        const cleanBinary = this.removeZeroX(binaryString);
+        var cleanBinary = this.removeZeroX(binaryString);
         // convert the result to a byte array so we can process it
-        const bytes = new ByteArray_1.default(Buffer.from(cleanBinary, "hex"));
+        var bytes = new ByteArray_1.default(Buffer.from(cleanBinary, "hex"));
         // divide by 32 bytes to find the number of results we need to read
-        const resultLenght = bytes.length / 32;
-        const Results = [];
-        for (let i = 0; i < resultLenght; i++) {
+        var resultLenght = bytes.length / 32;
+        var Results = [];
+        for (var i = 0; i < resultLenght; i++) {
             // 4 byte - 32 bit uint max = 4,294,967,295
             // provides more than enough 4GB of data in the output buffer
             // so.. offset our read pointer by 28 bytes
@@ -275,8 +278,9 @@ class Zoom {
             Results.push(bytes.readUnsignedInt());
         }
         return Results;
-    }
-}
+    };
+    return Zoom;
+}());
 exports.default = Zoom;
 ;
 //# sourceMappingURL=core.js.map

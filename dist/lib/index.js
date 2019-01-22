@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const core_1 = __importDefault(require("./zoom/core"));
+var core_1 = __importDefault(require("./zoom/core"));
 exports.Zoom = core_1.default;
-const ByteArray_1 = __importDefault(require("./utils/ByteArray"));
+var ByteArray_1 = __importDefault(require("./utils/ByteArray"));
 exports.ByteArray = ByteArray_1.default;
-const HttpProvider_1 = __importDefault(require("./utils/HttpProvider"));
+var HttpProvider_1 = __importDefault(require("./utils/HttpProvider"));
 exports.HttpProvider = HttpProvider_1.default;
-const WsProvider_1 = __importDefault(require("./utils/WsProvider"));
+var WsProvider_1 = __importDefault(require("./utils/WsProvider"));
 exports.WsProvider = WsProvider_1.default;
 //# sourceMappingURL=index.js.map
