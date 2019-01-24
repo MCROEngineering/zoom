@@ -26,7 +26,7 @@ gulp.task('build', function () {
         .pipe(buffer())
         .pipe(sourcemaps.init({ loadMaps: true }))
         // Add transformation tasks to the pipeline here
-        // .pipe(uglify())
+        .pipe(uglify())
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('./dist/bundle'));
