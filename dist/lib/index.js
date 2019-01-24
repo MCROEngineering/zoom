@@ -20,4 +20,11 @@ var HttpProvider_1 = __importDefault(require("./utils/HttpProvider"));
 exports.HttpProvider = HttpProvider_1.default;
 var WsProvider_1 = __importDefault(require("./utils/WsProvider"));
 exports.WsProvider = WsProvider_1.default;
+if (typeof window !== 'undefined') {
+    window.ZoomMin = window.ZoomMin || {};
+    window.ZoomMin.Zoom = core_1.default;
+    window.ZoomMin.ByteArray = ByteArray_1.default;
+    window.ZoomMin.HttpProvider = HttpProvider_1.default;
+    window.ZoomMin.WsProvider = WsProvider_1.default;
+}
 //# sourceMappingURL=index.js.map
